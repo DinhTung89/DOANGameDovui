@@ -1,7 +1,7 @@
 import * as diacritics from 'diacritics';
-import Singleton from './Singleton';
 import KeyInput from './KeyInput';
 import KeyOutput from './KeyOutput';
+import Singleton from '../Manager/Singleton';
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -9,8 +9,7 @@ export default class CauDoCtrl extends cc.Component {
 
     @property(cc.Label)
     cauDo: cc.Label = null;
-    @property(cc.TextAsset)
-    text: cc.TextAsset = null;
+    dataText: cc.TextAsset = null;
     @property([cc.Node])
     arrayLabelKey: cc.Node[] = [];
     @property([cc.Node])
@@ -27,34 +26,77 @@ export default class CauDoCtrl extends cc.Component {
     popWin: cc.Node = null;
     dapAn: String = "";
     listDapAn: String[] = [];
+    poolODapAn: cc.NodePool = null;
+
+    dataCauDo = JSON.parse(localStorage.getItem("CauDo"));
+
+
+
+
     protected onLoad(): void {
-        
         Singleton.CAU_DO_CTRL = this;
+        this.createPoolODA(20);
+
     }
+
+
+
+
     protected start(): void {
-        this.cauDo.string = this.printCauDo();
-        this.printKey();
-        this.instanceDapAn();
-        for (let i = 0; i < this.arrayInputDapAn.length; i++) {
-            this.arrayInputDapAn[i].getComponent(cc.Label).string = "";
+
+        this.loadDataNew();
+
+
+    }
+
+
+
+    createPoolODA(size: number) {
+        this.poolODapAn = new cc.NodePool();
+        for (let i = 0; i < size; i++) {
+            let o = cc.instantiate(this.oDapAn);
+            // console.log("a");
+
+            this.poolODapAn.put(o);
+            // console.log(this.poolODapAn);
+
         }
-        this.dapAn = this.convertToUpperCase(this.printDapAn());
-        this.listDapAn = this.dapAn.split("");
+    }
 
 
+    loadDataNew() {
+        cc.loader.loadRes("CauDo/Cau" + this.dataCauDo.currentQues.toString(), cc.TextAsset, (err, txt) => {
+            if (err) {
+                cc.error("Hết Câu Hỏi Trong Kho:", err);
+                this.dataCauDo.currentQues = 1;
+                localStorage.setItem("CauDo", JSON.stringify(this.dataCauDo));
+                return;
+            }
+            this.dataText = txt;
+            this.cauDo.string = this.printCauDo();
+            this.printKey();
+            this.instanceDapAn();
+            console.log(this.arrayInputDapAn.length);
+
+            for (let i = 0; i < this.arrayInputDapAn.length; i++) {
+                this.arrayInputDapAn[i].getComponent(cc.Label).string = "";
+            }
+            this.dapAn = this.convertToUpperCase(this.printDapAn());
+            this.listDapAn = this.dapAn.split("");
+        });
     }
 
     //Đưa ra câu đố từ file Text
     printCauDo() {
         //Dùng split chia text thành mảng phân chia theo str "/*"
-        var array: String[] = this.text.toString().split("/*");
+        var array: String[] = this.dataText.toString().split("/*");
         var cauDo = array[1].toString();
         return cauDo;
     }
 
     //Đưa ra đáp án từ file Text
     printDapAn() {
-        var array: String[] = this.text.toString().split("/*");
+        var array: String[] = this.dataText.toString().split("/*");
         var dapAn = array[0].toString();
         return dapAn;
     }
@@ -105,14 +147,27 @@ export default class CauDoCtrl extends cc.Component {
         }
     }
     instanceDapAn() {
-        for (let i = 1; i < this.printDapAn().length; i++) {
+        console.log(this.printDapAn().length);
+
+        for (let i = 1; i <= this.convertToUpperCase(this.printDapAn()).length; i++) {
+
             var oDapAn = cc.instantiate(this.oDapAn);
             oDapAn.name = i.toString();
             oDapAn.setParent(this.parentDapAn);
             var keyDapAn = cc.instantiate(this.keyDapAn);
             keyDapAn.setParent(oDapAn);
             keyDapAn.name = "key" + i;
-            this.arrayInputDapAn.push(keyDapAn);
+            this.arrayInputDapAn[i] = keyDapAn;
+        }
+    }
+    disableODapAn() {
+        console.log(this.arrayInputDapAn.length);
+
+        for (let i = 0; i < this.arrayInputDapAn.length; i++) {
+            console.log("i" + i);
+
+            this.arrayInputDapAn[i].parent.destroy();
+            this.arrayInputDapAn[i] = null;
         }
     }
 
@@ -138,5 +193,29 @@ export default class CauDoCtrl extends cc.Component {
     }
 
 
+    win() {
+        this.isWin = true;
+        this.popWin.active = true;
+        this.dataCauDo = JSON.parse(localStorage.getItem("CauDo"));
+        this.dataCauDo.currentQues += 1;
+        this.disableODapAn();
+        setTimeout(() => {
+            // this.disableODapAn();
+            this.loadDataNew();
+            this.setNewData();
+            this.isWin = false;
+        }, 3000);
+    }
+    setNewData() {
+        for (let i = 0; i < this.arrayLabelKey.length; i++) {
+            this.arrayLabelKey[i].parent.getComponent(KeyInput).isChose = false;
+            this.arrayLabelKey[i].parent.opacity = 255;
+        }
+        // for (let i = 0; i < this.arrayInputDapAn.length; i++) {
+        //     this.arrayInputDapAn[i].getComponent(KeyOutput).isChose = false;
+        //     this.arrayInputDapAn[i].parent.color = cc.color(180, 190, 250, 255);
+        //     this.arrayInputDapAn[i].getComponent(KeyOutput).isSuggest = false;
+        // }
+    }
 
 }

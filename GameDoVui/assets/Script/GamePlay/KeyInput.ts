@@ -1,6 +1,5 @@
-import CauDoCtrl from "./CauDoCtrl";
+import Singleton from "../Manager/Singleton";
 import KeyOutput from "./KeyOutput";
-import Singleton from "./Singleton";
 
 const { ccclass, property } = cc._decorator;
 
@@ -17,8 +16,7 @@ export default class KeyInput extends cc.Component {
     isChose = false;
     setActionTouch() {
         if (this.isChose || Singleton.CAU_DO_CTRL.isWin) return;
-        Singleton.x += 1;
-        console.log(Singleton.x);
+       
         
 
         for (let i = 0; i < Singleton.CAU_DO_CTRL.arrayInputDapAn.length; i++) {
@@ -40,8 +38,7 @@ export default class KeyInput extends cc.Component {
                 // console.log(x);
                 // console.log(Singleton.CAU_DO_CTRL.convertToUpperCase(Singleton.CAU_DO_CTRL.printDapAn()));
                 if (x == Singleton.CAU_DO_CTRL.convertToUpperCase(Singleton.CAU_DO_CTRL.printDapAn())) {
-                    Singleton.CAU_DO_CTRL.isWin = true;
-                    Singleton.CAU_DO_CTRL.popWin.active = true;
+                    Singleton.CAU_DO_CTRL.win();
                 }
 
                 return;

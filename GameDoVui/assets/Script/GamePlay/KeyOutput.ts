@@ -1,5 +1,5 @@
+import Singleton from "../Manager/Singleton";
 import KeyInput from "./KeyInput";
-import Singleton from "./Singleton";
 
 
 const { ccclass, property } = cc._decorator;

@@ -1,0 +1,4 @@
+Câu 12:Một hộp có 24 viên bi. Nếu Lan đã lấy ra 15 viên bi thì còn lại
+bao nhiêu viên bi trong hộp?/*A. 7 viên bi/*B. 8 viên bi/*C. 9 viên bi/*D. 10 viên bi/*C/*
+
+

@@ -1,0 +1,2 @@
+Câu 13: Có bao nhiêu nút (phím) trên một cây đàn piano thông thường?/*A. 36 nút./*B. 88 nút./*C. 100 nút./*D. 61 nút./*B/*
+

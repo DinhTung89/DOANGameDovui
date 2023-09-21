@@ -1,0 +1,4 @@
+Câu 14: Lớp 3A có 10 bạn học sinh nam, số bạn học sinh nữ gấp đôi số
+học sinh nam. Hỏi lớp học đó có bao nhiêu bạn học sinh ?/*A.	15 học sinh/*B.	20 học sinh/*C.	25 học sinh/*D.	30 học sinh/*D/*
+
+

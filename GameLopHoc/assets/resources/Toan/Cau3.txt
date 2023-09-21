@@ -1,0 +1,2 @@
+Câu 3: Khung của một bức tranh là hình vuông có cạnh 25 cm. 
+Hỏi chu vi của  khung bức tranh đó bằng bao nhiêu mét?/* A. 1 m/*C. 10 m/*B. 100 m/*D. 1000 m/*A/*

@@ -1,2 +1,0 @@
-Câu 5: Trong các số 24,51,62,77 số chia cho 5 có số dư lớn nhất là số nào?/*A. 24/*B. 51/*C. 62/*D. 77/*A/* 
-

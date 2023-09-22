@@ -157,7 +157,7 @@ export default class CauDoCtrl extends cc.Component {
             var keyDapAn = cc.instantiate(this.keyDapAn);
             keyDapAn.setParent(oDapAn);
             keyDapAn.name = "key" + i;
-            this.arrayInputDapAn[i] = keyDapAn;
+            this.arrayInputDapAn.push(keyDapAn);
         }
     }
     disableODapAn() {
@@ -166,8 +166,8 @@ export default class CauDoCtrl extends cc.Component {
         for (let i = 0; i < this.arrayInputDapAn.length; i++) {
             console.log("i" + i);
 
-            this.arrayInputDapAn[i].parent.destroy();
-            this.arrayInputDapAn[i] = null;
+            // this.arrayInputDapAn[i].parent.destroy();
+            // this.arrayInputDapAn[i] = null;
         }
     }
 

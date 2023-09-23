@@ -14,11 +14,11 @@ export default class KeyOutput extends cc.Component {
     isChose = false;
     isSuggest = false;
     setActionTouch() {
-        if (this.isChose || Singleton.CAU_DO_CTRL.isWin || this.isSuggest) return;
+        if (this.isChose || Singleton.MODE_CTRL.isWin || this.isSuggest) return;
         this.isChose = true;
-        Singleton.CAU_DO_CTRL.arrayLabelKey[this.numberKey].parent.opacity = 255;
+        Singleton.MODE_CTRL.arrayLabelKey[this.numberKey].parent.opacity = 255;
         this.node.getComponent(cc.Label).string = "";
-        Singleton.CAU_DO_CTRL.arrayLabelKey[this.numberKey].parent.getComponent(KeyInput).isChose = false;
+        Singleton.MODE_CTRL.arrayLabelKey[this.numberKey].parent.getComponent(KeyInput).isChose = false;
 
     }
 

@@ -1,5 +1,7 @@
-import CauDoCtrl from "../GamePlay/CauDoCtrl";
+import ModeCtrl from "../GamePlay/ModeCtrl";
+import GameData from "./GameData";
 
 export default class Singleton {
-    public static CAU_DO_CTRL: CauDoCtrl = null;
+    public static MODE_CTRL: ModeCtrl = null;
+    public static GAME_DATA: GameData = null;
 }

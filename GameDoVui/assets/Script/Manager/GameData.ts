@@ -1,3 +1,4 @@
+import Singleton from "./Singleton";
 
 
 const { ccclass, property } = cc._decorator;
@@ -5,10 +6,11 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class GameData extends cc.Component {
 
-
-
+    protected onLoad(): void {
+        Singleton.GAME_DATA = this;
+    }
     start() {
-this.initData();
+        this.initData();
     }
     initData() {
         // Khởi tạo các lớp dữ liệu

@@ -848,8 +848,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -630,
-        -320,
+        -200,
+        -500,
         0,
         0,
         0,
@@ -907,7 +907,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "nguoi31",
+    "_name": "farrmer",
     "_objFlags": 0,
     "_parent": {
       "__id__": 4
@@ -930,8 +930,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 133,
-      "height": 262
+      "width": 360,
+      "height": 810
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -942,15 +942,15 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -240,
-        -500,
+        -630,
+        -300,
         0,
         0,
         0,
         0,
         1,
-        1,
-        1,
+        0.3,
+        0.3,
         1
       ]
     },
@@ -983,10 +983,10 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "4df36fe5-822a-47bf-8d22-4b923b6d5ac8"
+      "__uuid__": "11a4137e-2bc1-46c5-a2eb-2726e6eba26f"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -1043,7 +1043,7 @@
     "cuCai": {
       "__id__": 16
     },
-    "fammer": {
+    "farmer": {
       "__id__": 18
     },
     "raft": {

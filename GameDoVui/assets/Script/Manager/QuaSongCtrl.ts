@@ -11,7 +11,7 @@ export default class QuaSongCtrl extends cc.Component {
     @property(cc.Node)
     cuCai: cc.Node = null;
     @property(cc.Node)
-    fammer: cc.Node = null;
+    farmer: cc.Node = null;
     @property(cc.Node)
     raft: cc.Node = null;
     @property(cc.Node)
@@ -66,19 +66,21 @@ export default class QuaSongCtrl extends cc.Component {
         this.soi.on(cc.Node.EventType.TOUCH_START, this.SoiLenThuyen, this);
         this.cuu.on(cc.Node.EventType.TOUCH_START, this.CuuLenThuyen, this);
         this.cuCai.on(cc.Node.EventType.TOUCH_START, this.CaiLenThuyen, this);
-        this.fammer.on(cc.Node.EventType.TOUCH_START, this.fammerOnBoat, this);
+        this.farmer.on(cc.Node.EventType.TOUCH_START, this.nguoiLenThuyen, this);
 
     }
     countRaft = 0;
     soiOnRaft = false;
+    isMoveOnRaft = false;
+    pos1On = false;
+    pos2On = false;
+    soiP1 = false;
+    soiP2 = false;
+    soiBoTrai = true;
+
     SoiLenThuyen() {
-        console.log(this.countRaft);
+        if (this.isMoveOnRaft) return;
 
-        if (this.countRaft == 2) {
-            console.log("full raft");
-            return;
-
-        }
         if (this.currentState.left.wolves == 1) {
             this.currentState.left.wolves = 0;
             this.currentState.right.wolves = 1;
@@ -89,36 +91,65 @@ export default class QuaSongCtrl extends cc.Component {
         }
         let t = cc.tween;
         let pos: cc.Node = null;
-        if (this.countRaft == 0) {
+        if (!this.pos1On) {
             pos = this.pos1;
 
         }
-        else {
+        else if (!this.pos2On) {
             pos = this.pos2;
         }
         if (this.soiOnRaft) {
+            this.isMoveOnRaft = true;
+            let posG;
+            if (this.soiBoTrai) {
+                posG = cc.v3(-380, -460, 0);
+            }
+            else {
+                posG = cc.v3(300, -80, 0);
+            }
             t(this.soi)
                 .parallel(
-                    t().to(0.5, { position: cc.v3(-380, -460, 0) }),
-                    t().to(0.5, { scaleX: 0.3 }),
-                    t().to(0.5, { scaleY: 0.3 }),
+                    t().to(0.2, { position: posG }),
+                    t().to(0.2, { scaleX: 0.3 }),
+                    t().to(0.2, { scaleY: 0.3 }),
                 )
                 .call(() => {
                     this.soiOnRaft = false;
-                    this.countRaft -= 1;
+                    if (this.soiP1) {
+                        this.pos1On = false;
+                        this.soiP1 = false;
+                    }
+                    else if (this.soiP2) {
+                        this.pos2On = false;
+                        this.soiP2 = false;
+                    }
+                    this.isMoveOnRaft = false;
                 })
                 .start();
         }
         else {
+            if (this.pos1On && this.pos2On) {
+                console.log("full raft");
+                return;
+            }
+            this.isMoveOnRaft = true;
             t(this.soi)
                 .parallel(
-                    t().to(0.5, { position: this.changePosition(pos, this.soi) }),
-                    t().to(0.5, { scaleX: 0.2 }),
-                    t().to(0.5, { scaleY: 0.2 }),
+                    t().to(0.2, { position: this.changePosition(pos, this.soi) }),
+                    t().to(0.2, { scaleX: 0.2 }),
+                    t().to(0.2, { scaleY: 0.2 }),
                 )
                 .call(() => {
                     this.soiOnRaft = true;
-                    this.countRaft += 1;
+                    if (pos == this.pos1) {
+                        this.pos1On = true;
+                        this.soiP1 = true;
+                    }
+                    else if (pos == this.pos2) {
+                        this.pos2On = true;
+                        this.soiP2 = true;
+                    }
+                    this.isMoveOnRaft = false;
                 })
 
                 .start();
@@ -127,8 +158,12 @@ export default class QuaSongCtrl extends cc.Component {
 
     }
     cuuOnRaft = false;
+    cuuP1 = false;
+    cuuP2 = false;
+    cuuBoTrai = true;
     CuuLenThuyen() {
-        console.log(this.countRaft);
+        // console.log(this.countRaft);
+        if (this.isMoveOnRaft) return;
 
         if (this.currentState.left.sheep == 1) {
             this.currentState.left.sheep = 0;
@@ -140,48 +175,81 @@ export default class QuaSongCtrl extends cc.Component {
         }
         let t = cc.tween;
         let pos: cc.Node = null;
-        if (this.countRaft == 0) {
+        if (!this.pos1On) {
             pos = this.pos1;
 
         }
-        else {
+        else if (!this.pos2On) {
             pos = this.pos2;
         }
         if (this.cuuOnRaft) {
+            this.isMoveOnRaft = true;
+            let posG;
+            if (this.cuuBoTrai) {
+                posG = cc.v3(-500, -400, 0);
+            }
+            else {
+                posG = cc.v3(190, -20, 0);
+
+            }
             t(this.cuu)
                 .parallel(
-
-                    
-                    t().to(0.5, { position: cc.v3(-500, -400, 0) }),
-                    t().to(0.5, { scaleX: 0.3 }),
-                    t().to(0.5, { scaleY: 0.3 }),
+                    t().to(0.2, { position: posG }),
+                    t().to(0.2, { scaleX: 0.3 }),
+                    t().to(0.2, { scaleY: 0.3 }),
                 )
                 .call(() => {
                     this.cuuOnRaft = false;
-                    this.countRaft -= 1;
+                    if (this.cuuP1) {
+                        this.pos1On = false;
+                        this.cuuP1 = false;
+                    }
+                    else if (this.cuuP2) {
+                        this.pos2On = false;
+                        this.cuuP2 = false;
+                    }
+                    this.isMoveOnRaft = false;
+
                 })
                 .start();
         }
         else {
+            if (this.pos1On && this.pos2On) {
+                console.log("full raft");
+                return;
+            }
+            this.isMoveOnRaft = true;
             t(this.cuu)
                 .parallel(
-                    t().to(0.5, { position: this.changePosition(pos, this.cuu) }),
-                    t().to(0.5, { scaleX: 0.2 }),
-                    t().to(0.5, { scaleY: 0.2 }),
+                    t().to(0.2, { position: this.changePosition(pos, this.cuu) }),
+                    t().to(0.2, { scaleX: 0.2 }),
+                    t().to(0.2, { scaleY: 0.2 }),
                 )
                 .call(() => {
                     this.cuuOnRaft = true;
-                    this.countRaft += 1;
+                    if (pos == this.pos1) {
+                        this.pos1On = true;
+                        this.cuuP1 = true;
+                    }
+                    else if (pos == this.pos2) {
+                        this.pos2On = true;
+                        this.cuuP2 = true;
+                    }
+                    this.isMoveOnRaft = false;
+
                 })
 
                 .start();
         }
 
     }
-    cuCaiOnBoat = false;
-
+    cuCaiOnRaft = false;
+    caiP1 = false;
+    caiP2 = false;
+    caiBoTrai = true;
     CaiLenThuyen() {
         console.log(this.countRaft);
+        if (this.isMoveOnRaft) return;
 
         if (this.currentState.left.radish == 1) {
             this.currentState.left.radish = 0;
@@ -194,49 +262,78 @@ export default class QuaSongCtrl extends cc.Component {
         }
         let t = cc.tween;
         let pos: cc.Node = null;
-        if (this.countRaft == 0) {
+        if (!this.pos1On) {
             pos = this.pos1;
 
         }
-        else {
+        else if (!this.pos2On) {
             pos = this.pos2;
         }
-        if (this.cuCaiOnBoat) {
+        if (this.cuCaiOnRaft) {
+            this.isMoveOnRaft = true;
+            let posG;
+            if (this.caiBoTrai) {
+                posG = cc.v3(-200, -500, 0);
+            }
+            else {
+                posG = cc.v3(450, -100, 0);
+
+            }
             t(this.cuCai)
                 .parallel(
-                    t().to(0.5, { position: cc.v3(-630, -320, 0) }),
-                    t().to(0.5, { scaleX: 0.3 }),
-                    t().to(0.5, { scaleY: 0.3 }),
+                    t().to(0.2, { position: posG }),
+                    t().to(0.2, { scaleX: 0.3 }),
+                    t().to(0.2, { scaleY: 0.3 }),
                 )
                 .call(() => {
-                    this.cuCaiOnBoat = false;
-                    this.countRaft -= 1;
+                    this.cuCaiOnRaft = false;
+                    if (this.caiP1) {
+                        this.pos1On = false;
+                        this.caiP1 = false;
+                    }
+                    else if (this.caiP2) {
+                        this.pos2On = false;
+                        this.caiP2 = false;
+                    }
+                    this.isMoveOnRaft = false;
+
                 })
                 .start();
         }
         else {
+            if (this.pos1On && this.pos2On) {
+                console.log("full raft");
+                return;
+            }
+            this.isMoveOnRaft = true;
             t(this.cuCai)
                 .parallel(
-                    t().to(0.5, { position: this.changePosition(pos, this.cuCai) }),
-                    t().to(0.5, { scaleX: 0.2 }),
-                    t().to(0.5, { scaleY: 0.2 }),
+                    t().to(0.2, { position: this.changePosition(pos, this.cuCai) }),
+                    t().to(0.2, { scaleX: 0.2 }),
+                    t().to(0.2, { scaleY: 0.2 }),
                 )
                 .call(() => {
-                    this.cuCaiOnBoat = true;
-                    this.countRaft += 1;
+                    this.cuCaiOnRaft = true;
+                    if (pos == this.pos1) {
+                        this.pos1On = true;
+                        this.caiP1 = true;
+                    }
+                    else if (pos == this.pos2) {
+                        this.pos2On = true;
+                        this.caiP2 = true;
+                    }
+                    this.isMoveOnRaft = false;
+
                 })
 
                 .start();
         }
     }
-    isFammerOnBoat = false;
-    fammerOnBoat() {
-        if (this.isFammerOnBoat) {
-            this.isFammerOnBoat = false;
-        }
-        else {
-            this.isFammerOnBoat = true;
-        }
+    farmerOnRaft = false;
+    farmerP1 = false;
+    farmerP2 = false;
+    nguoiBoTrai = true;
+    nguoiLenThuyen() {
         if (this.currentState.left.man == 1) {
             this.currentState.left.man = 0;
             this.currentState.right.man = 1;
@@ -246,6 +343,73 @@ export default class QuaSongCtrl extends cc.Component {
             this.currentState.right.man = 0;
         }
 
+
+        let t = cc.tween;
+        let pos: cc.Node = null;
+        if (!this.pos1On) {
+            pos = this.pos1;
+        }
+        else if (!this.pos2On) {
+            pos = this.pos2;
+        }
+        if (this.farmerOnRaft) {
+            this.isMoveOnRaft = true;
+            let posG;
+            if (this.nguoiBoTrai) {
+                posG = cc.v3(-630, -300, 0);
+            }
+            else {
+                posG = cc.v3(150, -30, 0);
+
+            }
+            t(this.farmer)
+                .parallel(
+                    t().to(0.2, { position: posG}),
+                    t().to(0.2, { scaleX: 0.3 }),
+                    t().to(0.2, { scaleY: 0.3 }),
+                )
+                .call(() => {
+                    this.farmerOnRaft = false;
+                    if (this.farmerP1) {
+                        this.pos1On = false;
+                        this.farmerP1 = false;
+                    }
+                    else if (this.farmerP2) {
+                        this.pos2On = false;
+                        this.farmerP2 = false;
+                    }
+                    this.isMoveOnRaft = false;
+
+                })
+                .start();
+        }
+        else {
+            if (this.pos1On && this.pos2On) {
+                console.log("full raft");
+                return;
+            }
+            this.isMoveOnRaft = true;
+            t(this.farmer)
+                .parallel(
+                    t().to(0.2, { position: this.changePosition(pos, this.farmer) }),
+                    t().to(0.2, { scaleX: 0.2 }),
+                    t().to(0.2, { scaleY: 0.2 }),
+                )
+                .call(() => {
+                    this.farmerOnRaft = true;
+                    if (pos == this.pos1) {
+                        this.pos1On = true;
+                        this.farmerP1 = true;
+                    }
+                    else if (pos == this.pos2) {
+                        this.pos2On = true;
+                        this.farmerP2 = true;
+                    }
+                    this.isMoveOnRaft = false;
+                })
+
+                .start();
+        }
     }
     checkSate() {
         for (let i = 0; i < this.arrayState.length; i++) {

@@ -1,346 +1,328 @@
 
 boy.png
-size: 1916,1848
+size: 3664,3400
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 boy/L_arm1
   rotate: false
-  xy: 918, 1489
+  xy: 1688, 456
   size: 220, 356
   orig: 220, 356
   offset: 0, 0
   index: -1
 girl/L_arm1
   rotate: false
-  xy: 918, 1489
+  xy: 1688, 456
   size: 220, 356
   orig: 220, 356
   offset: 0, 0
   index: -1
 boy/L_arm2
   rotate: false
-  xy: 792, 1664
+  xy: 1688, 273
   size: 124, 181
   orig: 124, 181
   offset: 0, 0
   index: -1
 girl/L_arm2
   rotate: false
-  xy: 792, 1664
+  xy: 1688, 273
   size: 124, 181
   orig: 124, 181
   offset: 0, 0
   index: -1
+boy/L_leg
+  rotate: false
+  xy: 3295, 2694
+  size: 367, 702
+  orig: 367, 703
+  offset: 0, 0
+  index: -1
 boy/Layer 1
   rotate: false
-  xy: 664, 1683
+  xy: 1814, 292
   size: 126, 162
   orig: 126, 162
   offset: 0, 0
   index: -1
 girl/Layer 1
   rotate: false
-  xy: 664, 1683
+  xy: 1814, 292
   size: 126, 162
   orig: 126, 162
   offset: 0, 0
   index: -1
 boy/Layer 2
   rotate: false
-  xy: 253, 1718
+  xy: 2, 2
   size: 173, 127
   orig: 175, 129
   offset: 1, 1
   index: -1
 girl/Layer 2
   rotate: false
-  xy: 253, 1718
+  xy: 2, 2
   size: 173, 127
   orig: 175, 129
   offset: 1, 1
   index: -1
 boy/Layer 3
   rotate: false
-  xy: 118, 1723
+  xy: 177, 7
   size: 133, 122
   orig: 133, 123
   offset: 0, 0
   index: -1
 girl/Layer 3
   rotate: false
-  xy: 118, 1723
+  xy: 177, 7
   size: 133, 122
   orig: 133, 123
   offset: 0, 0
   index: -1
 boy/Layer 4
   rotate: false
-  xy: 2, 1743
+  xy: 312, 27
   size: 114, 102
   orig: 114, 102
   offset: 0, 0
   index: -1
 girl/Layer 4
   rotate: false
-  xy: 2, 1743
+  xy: 312, 27
   size: 114, 102
   orig: 114, 102
   offset: 0, 0
   index: -1
 boy/Layer 6
   rotate: false
-  xy: 546, 1688
+  xy: 1814, 133
   size: 116, 157
   orig: 118, 159
   offset: 1, 1
   index: -1
 girl/Layer 6
   rotate: false
-  xy: 546, 1688
+  xy: 1814, 133
   size: 116, 157
   orig: 118, 159
   offset: 1, 1
   index: -1
 boy/Layer 7
   rotate: false
-  xy: 428, 1693
+  xy: 1688, 119
   size: 116, 152
   orig: 116, 152
   offset: 0, 0
   index: -1
 girl/Layer 7
   rotate: false
-  xy: 428, 1693
+  xy: 1688, 119
   size: 116, 152
   orig: 116, 152
   offset: 0, 0
   index: -1
 boy/R_leg
   rotate: false
-  xy: 608, 970
+  xy: 3292, 1296
   size: 296, 692
   orig: 296, 693
   offset: 0, 0
   index: -1
 boy/angry
   rotate: false
-  xy: 906, 696
+  xy: 2082, 2120
   size: 603, 637
   orig: 606, 639
   offset: 1, 1
   index: -1
 boy/angry2
   rotate: false
-  xy: 2, 412
+  xy: 2687, 2120
   size: 603, 637
   orig: 606, 639
   offset: 1, 1
   index: -1
 boy/body
   rotate: false
-  xy: 1140, 1335
+  xy: 3204, 784
   size: 388, 510
   orig: 388, 510
   offset: 0, 0
   index: -1
 boy/cry
   rotate: false
-  xy: 2, 1051
+  xy: 2984, 147
   size: 604, 635
   orig: 606, 637
   offset: 1, 1
   index: -1
 boy/cry2
   rotate: false
-  xy: 607, 57
+  xy: 2081, 2759
   size: 606, 637
   orig: 608, 639
   offset: 1, 1
   index: -1
 boy/happy
   rotate: false
-  xy: 1215, 2
+  xy: 2082, 1481
   size: 603, 637
   orig: 605, 639
   offset: 1, 1
   index: -1
-girl/R_leg
-  rotate: false
-  xy: 1511, 641
-  size: 296, 692
-  orig: 296, 693
-  offset: 0, 0
-  index: -1
-girl/body
-  rotate: false
-  xy: 1530, 1335
-  size: 383, 510
-  orig: 383, 510
-  offset: 0, 0
-  index: -1
-
-boy2.png
-size: 1764,1964
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-boy/L_leg
-  rotate: false
-  xy: 2, 1259
-  size: 367, 702
-  orig: 367, 703
-  offset: 0, 0
-  index: -1
-girl/L_leg
-  rotate: false
-  xy: 2, 555
-  size: 367, 702
-  orig: 367, 703
-  offset: 0, 0
-  index: -1
-girl/angry
-  rotate: false
-  xy: 371, 1310
-  size: 693, 651
-  orig: 696, 653
-  offset: 1, 1
-  index: -1
-girl/angry2
-  rotate: false
-  xy: 1066, 4
-  size: 692, 651
-  orig: 697, 653
-  offset: 3, 1
-  index: -1
-girl/cry2
-  rotate: false
-  xy: 1066, 1310
-  size: 693, 651
-  orig: 696, 653
-  offset: 1, 1
-  index: -1
-girl/hoicham2
-  rotate: false
-  xy: 371, 2
-  size: 693, 651
-  orig: 696, 653
-  offset: 2, 1
-  index: -1
-girl/lazy
-  rotate: false
-  xy: 1065, 657
-  size: 693, 651
-  orig: 696, 653
-  offset: 1, 1
-  index: -1
-girl/nor
-  rotate: false
-  xy: 371, 655
-  size: 692, 653
-  orig: 694, 655
-  offset: 1, 1
-  index: -1
-
-boy3.png
-size: 1992,1936
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
 boy/happy2
   rotate: false
-  xy: 2, 1294
+  xy: 2687, 1481
   size: 603, 637
   orig: 607, 639
   offset: 2, 1
   index: -1
 boy/hoicham
   rotate: false
-  xy: 607, 1294
+  xy: 1390, 1453
   size: 603, 637
   orig: 605, 639
   offset: 1, 1
   index: -1
 boy/hoicham2
   rotate: false
-  xy: 1212, 1294
+  xy: 1995, 842
   size: 603, 637
   orig: 607, 639
   offset: 2, 1
   index: -1
 boy/lazy
   rotate: false
-  xy: 2, 655
+  xy: 2689, 2759
   size: 604, 637
   orig: 606, 639
   offset: 1, 1
   index: -1
 boy/lazy2
   rotate: false
-  xy: 608, 655
+  xy: 1995, 203
   size: 602, 637
   orig: 605, 639
   offset: 2, 1
   index: -1
 boy/nhaymat
   rotate: false
-  xy: 1212, 655
+  xy: 1390, 814
   size: 603, 637
   orig: 607, 639
   offset: 2, 1
   index: -1
 boy/nor
   rotate: false
-  xy: 2, 15
+  xy: 2600, 841
   size: 602, 638
   orig: 602, 638
   offset: 0, 0
   index: -1
+girl/L_leg
+  rotate: false
+  xy: 3292, 1990
+  size: 367, 702
+  orig: 367, 703
+  offset: 0, 0
+  index: -1
+girl/R_leg
+  rotate: false
+  xy: 1390, 120
+  size: 296, 692
+  orig: 296, 693
+  offset: 0, 0
+  index: -1
+girl/angry
+  rotate: false
+  xy: 2, 2090
+  size: 693, 651
+  orig: 696, 653
+  offset: 1, 1
+  index: -1
+girl/angry2
+  rotate: false
+  xy: 2, 131
+  size: 692, 651
+  orig: 697, 653
+  offset: 3, 1
+  index: -1
+girl/body
+  rotate: false
+  xy: 2599, 329
+  size: 383, 510
+  orig: 383, 510
+  offset: 0, 0
+  index: -1
 girl/cry
   rotate: false
-  xy: 606, 2
+  xy: 697, 2092
   size: 691, 651
   orig: 693, 653
   offset: 1, 1
   index: -1
+girl/cry2
+  rotate: false
+  xy: 696, 2745
+  size: 693, 651
+  orig: 696, 653
+  offset: 1, 1
+  index: -1
 girl/happy
   rotate: false
-  xy: 1299, 2
+  xy: 697, 1439
   size: 691, 651
   orig: 697, 653
   offset: 3, 1
   index: -1
-
-boy4.png
-size: 1388,1308
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
 girl/happy2
   rotate: false
-  xy: 696, 655
+  xy: 1391, 2745
   size: 688, 651
   orig: 690, 653
   offset: 1, 1
   index: -1
 girl/hoicham
   rotate: false
-  xy: 2, 2
+  xy: 697, 786
   size: 691, 651
   orig: 697, 653
   offset: 3, 1
   index: -1
+girl/hoicham2
+  rotate: false
+  xy: 2, 1437
+  size: 693, 651
+  orig: 696, 653
+  offset: 2, 1
+  index: -1
+girl/lazy
+  rotate: false
+  xy: 2, 784
+  size: 693, 651
+  orig: 696, 653
+  offset: 1, 1
+  index: -1
 girl/lazy2
   rotate: false
-  xy: 2, 655
+  xy: 696, 131
   size: 692, 651
   orig: 694, 653
   offset: 1, 1
   index: -1
 girl/nhaymat
   rotate: false
-  xy: 695, 2
+  xy: 1390, 2092
   size: 690, 651
   orig: 692, 653
+  offset: 1, 1
+  index: -1
+girl/nor
+  rotate: false
+  xy: 2, 2743
+  size: 692, 653
+  orig: 694, 655
   offset: 1, 1
   index: -1

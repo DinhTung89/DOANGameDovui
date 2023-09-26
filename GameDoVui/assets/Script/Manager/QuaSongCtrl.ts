@@ -1,3 +1,5 @@
+import PopQuaSong from "./PopQuaSong";
+import Singleton from "./Singleton";
 
 const { ccclass, property } = cc._decorator;
 
@@ -20,6 +22,8 @@ export default class QuaSongCtrl extends cc.Component {
     pos2: cc.Node = null;
     @property(cc.Node)
     btnMove: cc.Node = null;
+    @property(PopQuaSong)
+    pop: PopQuaSong = null;
 
     //Cuu an bap
     State1 = {
@@ -57,6 +61,9 @@ export default class QuaSongCtrl extends cc.Component {
         right: { wolves: 0, sheep: 0, radish: 0, farmer: 0 }
     }
     arrayState: any[] = [];
+    protected onLoad(): void {
+        Singleton.QUA_SONG_CTRL = this;
+    }
     protected start(): void {
         this.arrayState.push(this.State1);
         this.arrayState.push(this.State2);
@@ -122,7 +129,7 @@ export default class QuaSongCtrl extends cc.Component {
                 this.currentState.left.wolves = 0;
                 this.currentState.right.wolves = 1;
             }
-            console.log(this.currentState);
+            // console.log(this.currentState);
 
             t(this.soi)
                 .parallel(
@@ -158,7 +165,7 @@ export default class QuaSongCtrl extends cc.Component {
                 this.currentState.left.wolves = 1;
                 this.currentState.right.wolves = 0;
             }
-            console.log(this.currentState);
+            // console.log(this.currentState);
 
             t(this.soi)
                 .parallel(
@@ -207,7 +214,7 @@ export default class QuaSongCtrl extends cc.Component {
         //     this.currentState.left.sheep = 1;
         //     this.currentState.right.sheep = 0;
         // }
-        console.log(this.currentState);
+        // console.log(this.currentState);
 
         let t = cc.tween;
         let pos: cc.Node = null;
@@ -269,7 +276,7 @@ export default class QuaSongCtrl extends cc.Component {
                 this.currentState.left.sheep = 1;
                 this.currentState.right.sheep = 0;
             }
-            console.log(this.currentState);
+            // console.log(this.currentState);
 
             t(this.cuu)
                 .parallel(
@@ -306,7 +313,7 @@ export default class QuaSongCtrl extends cc.Component {
     caiP2 = false;
     caiBoTrai = true;
     CaiLenThuyen() {
-        console.log(this.countRaft);
+        // console.log(this.countRaft);
         if (this.isMoveOnRaft) return;
 
         // if (this.currentState.left.radish == 1) {
@@ -341,7 +348,7 @@ export default class QuaSongCtrl extends cc.Component {
                 this.currentState.left.radish = 0;
                 this.currentState.right.radish = 1;
             }
-            console.log(this.currentState);
+            // console.log(this.currentState);
 
             t(this.cuCai)
                 .parallel(
@@ -378,7 +385,7 @@ export default class QuaSongCtrl extends cc.Component {
                 this.currentState.left.radish = 1;
                 this.currentState.right.radish = 0;
             }
-            console.log(this.currentState);
+            // console.log(this.currentState);
 
             t(this.cuCai)
                 .parallel(
@@ -444,7 +451,7 @@ export default class QuaSongCtrl extends cc.Component {
                 this.currentState.left.farmer = 0;
                 this.currentState.right.farmer = 1;
             }
-            console.log(this.currentState);
+            // console.log(this.currentState);
 
             t(this.farmer)
                 .parallel(
@@ -482,7 +489,7 @@ export default class QuaSongCtrl extends cc.Component {
                 this.currentState.left.farmer = 1;
                 this.currentState.right.farmer = 0;
             }
-            console.log(this.currentState);
+            // console.log(this.currentState);
 
             t(this.farmer)
                 .parallel(
@@ -511,7 +518,11 @@ export default class QuaSongCtrl extends cc.Component {
     raftBoTrai = true;
     moveRaft() {
         this.checkSate();
-        if (!this.farmerOnRaft || this.isFail) return;
+        if (this.isFail) return;
+        if (!this.farmerOnRaft) {
+            this.pop.openNguoi();
+            return;
+        }
         let pos = null;
         if (!this.raftBoTrai) {
             pos = cc.v3(-230, -260, 0);
@@ -523,10 +534,15 @@ export default class QuaSongCtrl extends cc.Component {
         cc.tween(this.raft)
             .to(0.5, { position: pos })
             .call(() => {
-              
-
                 this.raftBoTrai = !this.raftBoTrai;
                 this.nguoiBoTrai = !this.nguoiBoTrai;
+                if (this.raftBoTrai) {
+                    this.btnMove.getChildByName("muiten").angle = 0;
+                }
+                else{
+                    this.btnMove.getChildByName("muiten").angle = 180;
+
+                }
                 this.nguoiLenThuyen();
                 if (this.cuCaiOnRaft) {
                     this.caiBoTrai = !this.caiBoTrai;
@@ -641,6 +657,7 @@ export default class QuaSongCtrl extends cc.Component {
             && this.currentState.left.radish == this.arrayState[2].left.radish
             && this.currentState.left.farmer == this.arrayState[2].left.farmer) {
             console.log("Cừu ăn củ cải");
+            this.pop.openCuuAnCucai();
             this.isFail = true;
         }
         else if (this.currentState.left.wolves == this.arrayState[1].left.wolves
@@ -657,6 +674,7 @@ export default class QuaSongCtrl extends cc.Component {
             && this.currentState.left.sheep == this.arrayState[4].left.sheep
             && this.currentState.left.radish == this.arrayState[4].left.radish
             && this.currentState.left.farmer == this.arrayState[4].left.farmer) {
+            this.pop.openSoiAnCuu();
             console.log("Sói ăn cừu");
             this.isFail = true;
         }

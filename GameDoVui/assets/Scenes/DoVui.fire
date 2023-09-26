@@ -555,7 +555,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "3",
+    "_name": "boy",
     "_objFlags": 0,
     "_parent": {
       "__id__": 9
@@ -578,8 +578,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 400,
-      "height": 400
+      "width": 769.44,
+      "height": 1693
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -590,15 +590,15 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        379.13,
-        -151.899,
+        400,
+        -270,
         0,
         0,
         0,
         0,
         1,
-        0.5,
-        0.5,
+        0.2,
+        0.2,
         1
       ]
     },
@@ -613,10 +613,10 @@
     "_is3DNode": false,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "24q9mUQp5JCqb0euJbhTvQ"
+    "_id": "26eBIaNo1AMaeApEGEBqKF"
   },
   {
-    "__type__": "cc.Sprite",
+    "__type__": "sp.Skeleton",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -625,27 +625,37 @@
     "_enabled": true,
     "_materials": [
       {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+        "__uuid__": "7afd064b-113f-480e-b793-8817d19f63c3"
       }
     ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "36659eda-3dd8-4b72-aa40-34394a7409c8"
+    "paused": false,
+    "defaultSkin": "boy",
+    "defaultAnimation": "false_answer",
+    "_preCacheMode": 0,
+    "_cacheMode": 0,
+    "loop": true,
+    "premultipliedAlpha": true,
+    "timeScale": 1,
+    "_accTime": 0,
+    "_playCount": 0,
+    "_frameCache": null,
+    "_curFrame": null,
+    "_skeletonCache": null,
+    "_animationName": "false_answer",
+    "_animationQueue": [],
+    "_headAniInfo": null,
+    "_playTimes": 0,
+    "_isAniComplete": true,
+    "_N$skeletonData": {
+      "__uuid__": "c73a0ea2-cd02-4388-9992-cf5484d15dcf"
     },
-    "_type": 0,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
-    "_id": "80pgt9lS9HKoBlaYCtH0zL"
+    "_N$_defaultCacheMode": 0,
+    "_N$debugSlots": false,
+    "_N$debugBones": false,
+    "_N$debugMesh": false,
+    "_N$useTint": false,
+    "_N$enableBatch": false,
+    "_id": "96kS8csI1J97yV0RZl2fbV"
   },
   {
     "__type__": "cc.Node",

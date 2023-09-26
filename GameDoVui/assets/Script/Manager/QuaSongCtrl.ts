@@ -18,41 +18,43 @@ export default class QuaSongCtrl extends cc.Component {
     pos1: cc.Node = null;
     @property(cc.Node)
     pos2: cc.Node = null;
+    @property(cc.Node)
+    btnMove: cc.Node = null;
 
     //Cuu an bap
     State1 = {
-        left: { wolves: 0, sheep: 1, radish: 1, man: 0 },
-        right: { wolves: 1, sheep: 0, radish: 0, man: 1 }
+        left: { wolves: 0, sheep: 1, radish: 1, farmer: 0 },
+        right: { wolves: 1, sheep: 0, radish: 0, farmer: 1 }
     };
     //Soi An Cuu
     State2 = {
-        left: { wolves: 1, sheep: 1, radish: 0, man: 0 },
-        right: { wolves: 0, sheep: 0, radish: 1, man: 1 }
+        left: { wolves: 1, sheep: 1, radish: 0, farmer: 0 },
+        right: { wolves: 0, sheep: 0, radish: 1, farmer: 1 }
     };
 
     //Cuu an bap
     State3 = {
-        left: { wolves: 1, sheep: 0, radish: 0, man: 1 },
-        right: { wolves: 0, sheep: 1, radish: 1, man: 0 }
+        left: { wolves: 1, sheep: 0, radish: 0, farmer: 1 },
+        right: { wolves: 0, sheep: 1, radish: 1, farmer: 0 }
     };
     //Soi An Cuu
     State4 = {
-        left: { wolves: 0, sheep: 0, radish: 1, man: 1 },
-        right: { wolves: 1, sheep: 1, radish: 0, man: 0 }
+        left: { wolves: 0, sheep: 0, radish: 1, farmer: 1 },
+        right: { wolves: 1, sheep: 1, radish: 0, farmer: 0 }
     };
     //Soi An Cuu
     State5 = {
-        left: { wolves: 1, sheep: 1, radish: 1, man: 0 },
-        right: { wolves: 0, sheep: 0, radish: 0, man: 1 }
+        left: { wolves: 1, sheep: 1, radish: 1, farmer: 0 },
+        right: { wolves: 0, sheep: 0, radish: 0, farmer: 1 }
     };
     //End
     StateEnd = {
-        left: { wolves: 0, sheep: 0, radish: 0, man: 0 },
-        right: { wolves: 1, sheep: 1, radish: 1, man: 1 }
+        left: { wolves: 0, sheep: 0, radish: 0, farmer: 0 },
+        right: { wolves: 1, sheep: 1, radish: 1, farmer: 1 }
     };
     currentState = {
-        left: { wolves: 1, sheep: 1, radish: 1, man: 1 },
-        right: { wolves: 0, sheep: 0, radish: 0, man: 0 }
+        left: { wolves: 1, sheep: 1, radish: 1, farmer: 1 },
+        right: { wolves: 0, sheep: 0, radish: 0, farmer: 0 }
     }
     arrayState: any[] = [];
     protected start(): void {
@@ -62,7 +64,6 @@ export default class QuaSongCtrl extends cc.Component {
         this.arrayState.push(this.State4);
         this.arrayState.push(this.State5);
         this.arrayState.push(this.StateEnd);
-        this.checkSate();
         this.soi.on(cc.Node.EventType.TOUCH_START, this.SoiLenThuyen, this);
         this.cuu.on(cc.Node.EventType.TOUCH_START, this.CuuLenThuyen, this);
         this.cuCai.on(cc.Node.EventType.TOUCH_START, this.CaiLenThuyen, this);
@@ -70,25 +71,32 @@ export default class QuaSongCtrl extends cc.Component {
 
     }
     countRaft = 0;
-    soiOnRaft = false;
-    isMoveOnRaft = false;
     pos1On = false;
     pos2On = false;
+    isMoveOnRaft = false;
+
+
+
+
+
+    // Soi an thittttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
+    soiOnRaft = false;
     soiP1 = false;
     soiP2 = false;
     soiBoTrai = true;
-
     SoiLenThuyen() {
         if (this.isMoveOnRaft) return;
 
-        if (this.currentState.left.wolves == 1) {
-            this.currentState.left.wolves = 0;
-            this.currentState.right.wolves = 1;
-        }
-        else {
-            this.currentState.left.wolves = 1;
-            this.currentState.right.wolves = 0;
-        }
+        // if (this.currentState.left.wolves == 1) {
+        //     this.currentState.left.wolves = 0;
+        //     this.currentState.right.wolves = 1;
+        // }
+        // else {
+        //     this.currentState.left.wolves = 1;
+        //     this.currentState.right.wolves = 0;
+        // }
+        console.log(this.currentState);
+
         let t = cc.tween;
         let pos: cc.Node = null;
         if (!this.pos1On) {
@@ -98,15 +106,24 @@ export default class QuaSongCtrl extends cc.Component {
         else if (!this.pos2On) {
             pos = this.pos2;
         }
+        // console.log(pos);
+
         if (this.soiOnRaft) {
             this.isMoveOnRaft = true;
+            this.ChangeParent(this.soi, this.node);
             let posG;
             if (this.soiBoTrai) {
                 posG = cc.v3(-380, -460, 0);
+                this.currentState.left.wolves = 1;
+                this.currentState.right.wolves = 0;
             }
             else {
-                posG = cc.v3(300, -80, 0);
+                posG = cc.v3(300, -60, 0);
+                this.currentState.left.wolves = 0;
+                this.currentState.right.wolves = 1;
             }
+            console.log(this.currentState);
+
             t(this.soi)
                 .parallel(
                     t().to(0.2, { position: posG }),
@@ -133,11 +150,21 @@ export default class QuaSongCtrl extends cc.Component {
                 return;
             }
             this.isMoveOnRaft = true;
+            if (this.raftBoTrai) {
+                this.currentState.left.wolves = 0;
+                this.currentState.right.wolves = 1;
+            }
+            else {
+                this.currentState.left.wolves = 1;
+                this.currentState.right.wolves = 0;
+            }
+            console.log(this.currentState);
+
             t(this.soi)
                 .parallel(
                     t().to(0.2, { position: this.changePosition(pos, this.soi) }),
-                    t().to(0.2, { scaleX: 0.2 }),
-                    t().to(0.2, { scaleY: 0.2 }),
+                    t().to(0.2, { scaleX: 0.25 }),
+                    t().to(0.2, { scaleY: 0.25 }),
                 )
                 .call(() => {
                     this.soiOnRaft = true;
@@ -150,6 +177,7 @@ export default class QuaSongCtrl extends cc.Component {
                         this.soiP2 = true;
                     }
                     this.isMoveOnRaft = false;
+                    this.ChangeParent(this.soi, this.raft);
                 })
 
                 .start();
@@ -157,22 +185,30 @@ export default class QuaSongCtrl extends cc.Component {
 
 
     }
+
+
+
+
+    //Cuu Connnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
     cuuOnRaft = false;
     cuuP1 = false;
     cuuP2 = false;
     cuuBoTrai = true;
     CuuLenThuyen() {
         // console.log(this.countRaft);
+
         if (this.isMoveOnRaft) return;
 
-        if (this.currentState.left.sheep == 1) {
-            this.currentState.left.sheep = 0;
-            this.currentState.right.sheep = 1;
-        }
-        else {
-            this.currentState.left.sheep = 1;
-            this.currentState.right.sheep = 0;
-        }
+        // if (this.currentState.left.sheep == 1) {
+        //     this.currentState.left.sheep = 0;
+        //     this.currentState.right.sheep = 1;
+        // }
+        // else {
+        //     this.currentState.left.sheep = 1;
+        //     this.currentState.right.sheep = 0;
+        // }
+        console.log(this.currentState);
+
         let t = cc.tween;
         let pos: cc.Node = null;
         if (!this.pos1On) {
@@ -183,13 +219,19 @@ export default class QuaSongCtrl extends cc.Component {
             pos = this.pos2;
         }
         if (this.cuuOnRaft) {
+            this.ChangeParent(this.cuu, this.node);
+
             this.isMoveOnRaft = true;
             let posG;
             if (this.cuuBoTrai) {
                 posG = cc.v3(-500, -400, 0);
+                this.currentState.left.sheep = 1;
+                this.currentState.right.sheep = 0;
             }
             else {
-                posG = cc.v3(190, -20, 0);
+                posG = cc.v3(150, -25, 0);
+                this.currentState.left.sheep = 0;
+                this.currentState.right.sheep = 1;
 
             }
             t(this.cuu)
@@ -219,11 +261,21 @@ export default class QuaSongCtrl extends cc.Component {
                 return;
             }
             this.isMoveOnRaft = true;
+            if (this.raftBoTrai) {
+                this.currentState.left.sheep = 0;
+                this.currentState.right.sheep = 1;
+            }
+            else {
+                this.currentState.left.sheep = 1;
+                this.currentState.right.sheep = 0;
+            }
+            console.log(this.currentState);
+
             t(this.cuu)
                 .parallel(
                     t().to(0.2, { position: this.changePosition(pos, this.cuu) }),
-                    t().to(0.2, { scaleX: 0.2 }),
-                    t().to(0.2, { scaleY: 0.2 }),
+                    t().to(0.2, { scaleX: 0.25 }),
+                    t().to(0.2, { scaleY: 0.25 }),
                 )
                 .call(() => {
                     this.cuuOnRaft = true;
@@ -236,6 +288,8 @@ export default class QuaSongCtrl extends cc.Component {
                         this.cuuP2 = true;
                     }
                     this.isMoveOnRaft = false;
+                    this.ChangeParent(this.cuu, this.raft);
+
 
                 })
 
@@ -243,6 +297,10 @@ export default class QuaSongCtrl extends cc.Component {
         }
 
     }
+
+
+
+    //Cu CAiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
     cuCaiOnRaft = false;
     caiP1 = false;
     caiP2 = false;
@@ -251,15 +309,15 @@ export default class QuaSongCtrl extends cc.Component {
         console.log(this.countRaft);
         if (this.isMoveOnRaft) return;
 
-        if (this.currentState.left.radish == 1) {
-            this.currentState.left.radish = 0;
-            this.currentState.right.radish = 1;
-        }
-        else {
-            this.currentState.left.radish = 1;
-            this.currentState.right.radish = 0;
+        // if (this.currentState.left.radish == 1) {
+        //     this.currentState.left.radish = 0;
+        //     this.currentState.right.radish = 1;
+        // }
+        // else {
+        //     this.currentState.left.radish = 1;
+        //     this.currentState.right.radish = 0;
 
-        }
+        // }
         let t = cc.tween;
         let pos: cc.Node = null;
         if (!this.pos1On) {
@@ -270,15 +328,21 @@ export default class QuaSongCtrl extends cc.Component {
             pos = this.pos2;
         }
         if (this.cuCaiOnRaft) {
+            this.ChangeParent(this.cuCai, this.node);
             this.isMoveOnRaft = true;
             let posG;
             if (this.caiBoTrai) {
                 posG = cc.v3(-200, -500, 0);
+                this.currentState.left.radish = 1;
+                this.currentState.right.radish = 0;
             }
             else {
-                posG = cc.v3(450, -100, 0);
-
+                posG = cc.v3(444, -100, 0);
+                this.currentState.left.radish = 0;
+                this.currentState.right.radish = 1;
             }
+            console.log(this.currentState);
+
             t(this.cuCai)
                 .parallel(
                     t().to(0.2, { position: posG }),
@@ -306,11 +370,21 @@ export default class QuaSongCtrl extends cc.Component {
                 return;
             }
             this.isMoveOnRaft = true;
+            if (this.raftBoTrai) {
+                this.currentState.left.radish = 0;
+                this.currentState.right.radish = 1;
+            }
+            else {
+                this.currentState.left.radish = 1;
+                this.currentState.right.radish = 0;
+            }
+            console.log(this.currentState);
+
             t(this.cuCai)
                 .parallel(
                     t().to(0.2, { position: this.changePosition(pos, this.cuCai) }),
-                    t().to(0.2, { scaleX: 0.2 }),
-                    t().to(0.2, { scaleY: 0.2 }),
+                    t().to(0.2, { scaleX: 0.25 }),
+                    t().to(0.2, { scaleY: 0.25 }),
                 )
                 .call(() => {
                     this.cuCaiOnRaft = true;
@@ -323,27 +397,31 @@ export default class QuaSongCtrl extends cc.Component {
                         this.caiP2 = true;
                     }
                     this.isMoveOnRaft = false;
+                    this.ChangeParent(this.cuCai, this.raft);
 
                 })
 
                 .start();
         }
     }
+
+
+
+
+    //NguoiNongDanmnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
     farmerOnRaft = false;
     farmerP1 = false;
     farmerP2 = false;
     nguoiBoTrai = true;
     nguoiLenThuyen() {
-        if (this.currentState.left.man == 1) {
-            this.currentState.left.man = 0;
-            this.currentState.right.man = 1;
-        }
-        else {
-            this.currentState.left.man = 1;
-            this.currentState.right.man = 0;
-        }
-
-
+        // if (this.currentState.left.farmer == 1) {
+        //     this.currentState.left.farmer = 0;
+        //     this.currentState.right.farmer = 1;
+        // }
+        // else {
+        //     this.currentState.left.farmer = 1;
+        //     this.currentState.right.farmer = 0;
+        // }
         let t = cc.tween;
         let pos: cc.Node = null;
         if (!this.pos1On) {
@@ -353,18 +431,24 @@ export default class QuaSongCtrl extends cc.Component {
             pos = this.pos2;
         }
         if (this.farmerOnRaft) {
+            this.ChangeParent(this.farmer, this.node);
             this.isMoveOnRaft = true;
             let posG;
             if (this.nguoiBoTrai) {
                 posG = cc.v3(-630, -300, 0);
+                this.currentState.left.farmer = 1;
+                this.currentState.right.farmer = 0;
             }
             else {
-                posG = cc.v3(150, -30, 0);
-
+                posG = cc.v3(20, 30, 0);
+                this.currentState.left.farmer = 0;
+                this.currentState.right.farmer = 1;
             }
+            console.log(this.currentState);
+
             t(this.farmer)
                 .parallel(
-                    t().to(0.2, { position: posG}),
+                    t().to(0.2, { position: posG }),
                     t().to(0.2, { scaleX: 0.3 }),
                     t().to(0.2, { scaleY: 0.3 }),
                 )
@@ -388,12 +472,23 @@ export default class QuaSongCtrl extends cc.Component {
                 console.log("full raft");
                 return;
             }
+
             this.isMoveOnRaft = true;
+            if (this.raftBoTrai) {
+                this.currentState.left.farmer = 0;
+                this.currentState.right.farmer = 1;
+            }
+            else {
+                this.currentState.left.farmer = 1;
+                this.currentState.right.farmer = 0;
+            }
+            console.log(this.currentState);
+
             t(this.farmer)
                 .parallel(
                     t().to(0.2, { position: this.changePosition(pos, this.farmer) }),
-                    t().to(0.2, { scaleX: 0.2 }),
-                    t().to(0.2, { scaleY: 0.2 }),
+                    t().to(0.2, { scaleX: 0.25 }),
+                    t().to(0.2, { scaleY: 0.25 }),
                 )
                 .call(() => {
                     this.farmerOnRaft = true;
@@ -406,31 +501,177 @@ export default class QuaSongCtrl extends cc.Component {
                         this.farmerP2 = true;
                     }
                     this.isMoveOnRaft = false;
+                    this.ChangeParent(this.farmer, this.raft);
+
                 })
 
                 .start();
         }
     }
-    checkSate() {
-        for (let i = 0; i < this.arrayState.length; i++) {
-
-            if (this.currentState == this.arrayState[0] || this.currentState == this.arrayState[2]) {
-                console.log("Cừu ăn củ cải");
-
-            }
-            if (this.currentState == this.arrayState[1]
-                || this.currentState == this.arrayState[3]
-                || this.currentState == this.arrayState[4]) {
-                console.log("Sói ăn cừu");
-
-            }
-            if (this.currentState == this.StateEnd) {
-                console.log("Win");
-
-            }
+    raftBoTrai = true;
+    moveRaft() {
+        this.checkSate();
+        if (!this.farmerOnRaft || this.isFail) return;
+        let pos = null;
+        if (!this.raftBoTrai) {
+            pos = cc.v3(-230, -260, 0);
         }
-    }
+        else {
+            pos = cc.v3(-100, -130, 0);
+        }
+        this.btnMove.active = false;
+        cc.tween(this.raft)
+            .to(0.5, { position: pos })
+            .call(() => {
+              
 
+                this.raftBoTrai = !this.raftBoTrai;
+                this.nguoiBoTrai = !this.nguoiBoTrai;
+                this.nguoiLenThuyen();
+                if (this.cuCaiOnRaft) {
+                    this.caiBoTrai = !this.caiBoTrai;
+                    let t = cc.tween;
+                    this.ChangeParent(this.cuCai, this.node);
+                    let posG;
+                    if (this.caiBoTrai) {
+                        posG = cc.v3(-200, -500, 0);
+                    }
+                    else {
+                        posG = cc.v3(444, -100, 0);
+                    }
+                    t(this.cuCai)
+                        .parallel(
+                            t().to(0.2, { position: posG }),
+                            t().to(0.2, { scaleX: 0.3 }),
+                            t().to(0.2, { scaleY: 0.3 }),
+                        )
+                        .call(() => {
+                            this.cuCaiOnRaft = false;
+                            if (this.caiP1) {
+                                this.pos1On = false;
+                                this.caiP1 = false;
+                            }
+                            else if (this.caiP2) {
+                                this.pos2On = false;
+                                this.caiP2 = false;
+                            }
+                            this.isMoveOnRaft = false;
+
+                        })
+                        .start();
+
+                }
+                if (this.soiOnRaft) {
+                    this.soiBoTrai = !this.soiBoTrai;
+                    let t = cc.tween;
+                    this.ChangeParent(this.soi, this.node);
+                    let posG;
+                    if (this.soiBoTrai) {
+                        posG = cc.v3(-380, -460, 0);
+                    }
+                    else {
+                        posG = cc.v3(300, -60, 0);
+                    }
+                    t(this.soi)
+                        .parallel(
+                            t().to(0.2, { position: posG }),
+                            t().to(0.2, { scaleX: 0.3 }),
+                            t().to(0.2, { scaleY: 0.3 }),
+                        )
+                        .call(() => {
+                            this.soiOnRaft = false;
+                            if (this.soiP1) {
+                                this.pos1On = false;
+                                this.soiP1 = false;
+                            }
+                            else if (this.soiP2) {
+                                this.pos2On = false;
+                                this.soiP2 = false;
+                            }
+                            this.isMoveOnRaft = false;
+                        })
+                        .start();
+                }
+                if (this.cuuOnRaft) {
+                    this.cuuBoTrai = !this.cuuBoTrai;
+                    let t = cc.tween;
+                    this.ChangeParent(this.cuu, this.node);
+                    let posG;
+                    if (this.cuuBoTrai) {
+                        posG = cc.v3(-500, -400, 0);
+                    }
+                    else {
+                        posG = cc.v3(150, -25, 0);
+
+                    }
+                    t(this.cuu)
+                        .parallel(
+                            t().to(0.2, { position: posG }),
+                            t().to(0.2, { scaleX: 0.3 }),
+                            t().to(0.2, { scaleY: 0.3 }),
+                        )
+                        .call(() => {
+                            this.cuuOnRaft = false;
+                            if (this.cuuP1) {
+                                this.pos1On = false;
+                                this.cuuP1 = false;
+                            }
+                            else if (this.cuuP2) {
+                                this.pos2On = false;
+                                this.cuuP2 = false;
+                            }
+                            this.isMoveOnRaft = false;
+
+                        })
+                        .start();
+                }
+                this.btnMove.active = true;
+            })
+            .start();
+
+    }
+    isFail = false;
+    checkSate() {
+        if (this.currentState.left.wolves == this.arrayState[0].left.wolves
+            && this.currentState.left.sheep == this.arrayState[0].left.sheep
+            && this.currentState.left.radish == this.arrayState[0].left.radish
+            && this.currentState.left.farmer == this.arrayState[0].left.farmer
+            || this.currentState.left.wolves == this.arrayState[2].left.wolves
+            && this.currentState.left.sheep == this.arrayState[2].left.sheep
+            && this.currentState.left.radish == this.arrayState[2].left.radish
+            && this.currentState.left.farmer == this.arrayState[2].left.farmer) {
+            console.log("Cừu ăn củ cải");
+            this.isFail = true;
+        }
+        else if (this.currentState.left.wolves == this.arrayState[1].left.wolves
+            && this.currentState.left.sheep == this.arrayState[1].left.sheep
+            && this.currentState.left.radish == this.arrayState[1].left.radish
+            && this.currentState.left.farmer == this.arrayState[1].left.farmer
+
+            || this.currentState.left.wolves == this.arrayState[3].left.wolves
+            && this.currentState.left.sheep == this.arrayState[3].left.sheep
+            && this.currentState.left.radish == this.arrayState[3].left.radish
+            && this.currentState.left.farmer == this.arrayState[3].left.farmer
+
+            || this.currentState.left.wolves == this.arrayState[4].left.wolves
+            && this.currentState.left.sheep == this.arrayState[4].left.sheep
+            && this.currentState.left.radish == this.arrayState[4].left.radish
+            && this.currentState.left.farmer == this.arrayState[4].left.farmer) {
+            console.log("Sói ăn cừu");
+            this.isFail = true;
+        }
+        else if (this.currentState.left.wolves == this.arrayState[5].left.wolves
+            && this.currentState.left.sheep == this.arrayState[5].left.sheep
+            && this.currentState.left.radish == this.arrayState[5].left.radish
+            && this.currentState.left.farmer == this.arrayState[5].left.farmer) {
+            console.log("Win");
+            this.isFail = false;
+        }
+        else {
+            this.isFail = false;
+        }
+
+    }
     changePosition(currentNode: cc.Node, toNode?: cc.Node): cc.Vec3 {
         if (currentNode.parent) {
             var currentPostWorld = currentNode.parent.convertToWorldSpaceAR(currentNode.position);

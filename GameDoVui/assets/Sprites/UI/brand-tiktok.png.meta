@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "f6451d7f-5630-483a-ae41-3ca436656e60",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 2501,
+  "height": 1313,
+  "platformSettings": {},
+  "subMetas": {
+    "brand-tiktok": {
+      "ver": "1.0.6",
+      "uuid": "b1da68b6-9b2d-4354-855b-9e0946767217",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "f6451d7f-5630-483a-ae41-3ca436656e60",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 2501,
+      "height": 1313,
+      "rawWidth": 2501,
+      "rawHeight": 1313,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

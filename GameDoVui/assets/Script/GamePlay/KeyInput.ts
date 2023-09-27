@@ -14,6 +14,7 @@ export default class KeyInput extends cc.Component {
 
     }
     isChose = false;
+
     setActionTouch() {
         if (this.isChose || Singleton.MODE_CTRL.isWin) return;
         for (let i = 0; i < Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length; i++) {
@@ -36,29 +37,36 @@ export default class KeyInput extends cc.Component {
                 var regex = new RegExp(" ", "gi");
                 var x = dapAn.replace(regex, "");
                 console.log(x);
-
+                Singleton.MODE_CTRL.countKeyDA += 1;
                 // console.log(x);
                 // console.log(Singleton.CAU_DO_CTRL.convertToUpperCase(Singleton.CAU_DO_CTRL.printDapAn()));
 
-                if (i == Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length - 1) {
+                if (Singleton.MODE_CTRL.countKeyDA == Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length) {
                     Singleton.MODE_CTRL.animCheck.play();
+                    Singleton.MODE_CTRL.isAnim = true;
                     if (x == Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn())) {
-                        Singleton.MODE_CTRL.win();
+                        Singleton.MODE_CTRL.AnimWin();
                         setTimeout(() => {
                             Singleton.MODE_CTRL.greenCheck.width = 100 * Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length + 100;
                             Singleton.MODE_CTRL.greenCheck.active = true;
                             for (let j = 0; j < Singleton.MODE_CTRL.arrayLabelKey.length; j++) {
-                                    Singleton.MODE_CTRL.arrayInputDapAn[j].parent.color = cc.color(100, 200, 30, 255);                        
+                                Singleton.MODE_CTRL.arrayInputDapAn[j].parent.color = cc.color(100, 200, 30, 255);
                             }
+                            setTimeout(() => {
+                                Singleton.MODE_CTRL.win();
+                            }, 500);
                         }, 1000);
                     }
                     else {
+                        Singleton.MODE_CTRL.AnimLose();
+
                         setTimeout(() => {
                             Singleton.MODE_CTRL.redCheck.width = 100 * Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length + 100;
                             Singleton.MODE_CTRL.redCheck.active = true;
                             setTimeout(() => {
                                 Singleton.MODE_CTRL.redCheck.active = false;
-
+                                Singleton.MODE_CTRL.checkSao -= 1;
+                                Singleton.MODE_CTRL.isAnim = false;
                             }, 1000);
                         }, 1000);
                     }

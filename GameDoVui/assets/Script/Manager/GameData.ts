@@ -25,7 +25,27 @@ export default class GameData extends cc.Component {
             currentQues: 1,
             pass: false
         };
+        const Coin = {
+            coin: 0,
+        };
+        const ClassNV = {
+            nameNV: "TUNG",
+            isFirst: false,
+            isMale: false
+        };
         // Kiểm tra xem dữ liệu đã được tạo chưa và khở tạo
+        var JSName = localStorage.getItem("NameNV");
+        if (JSName == null) {
+            console.log("SET DATA Name");
+            const dataNameJS = JSON.stringify(ClassNV);
+            cc.sys.localStorage.setItem("NameNV", dataNameJS);
+        }
+        var JSCOIN = localStorage.getItem("Coin");
+        if (JSCOIN == null) {
+            console.log("SET DATA COIN");
+            const dataCoinJS = JSON.stringify(Coin);
+            localStorage.setItem('Coin', dataCoinJS);
+        }
         var JSDataCauDO = localStorage.getItem("CauDo");
         if (JSDataCauDO == null) {
             console.log("SET DATA CAUDO");

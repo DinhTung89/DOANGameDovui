@@ -517,12 +517,12 @@ export default class QuaSongCtrl extends cc.Component {
     }
     raftBoTrai = true;
     moveRaft() {
-        this.checkSate();
-        if (this.isFail) return;
         if (!this.farmerOnRaft) {
             this.pop.openNguoi();
             return;
         }
+        this.checkSate();
+        if (this.isFail) return;
         let pos = null;
         if (!this.raftBoTrai) {
             pos = cc.v3(-230, -260, 0);

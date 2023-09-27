@@ -2,6 +2,7 @@ import * as diacritics from 'diacritics';
 import KeyInput from './KeyInput';
 import KeyOutput from './KeyOutput';
 import Singleton from '../Manager/Singleton';
+import WinCtrl from './WinCtrl';
 export enum ModeType {
     CauDo,
     DuoiHinh,
@@ -40,9 +41,9 @@ export default class ModeCtrl extends cc.Component {
     dapAn: String = "";
 
     listDapAn: String[] = [];
-
     dataCauDo = JSON.parse(localStorage.getItem("CauDo"));
     dataDuoiHinh = JSON.parse(localStorage.getItem("DuoiHinh"));
+    dataCoin = JSON.parse(localStorage.getItem("Coin"));
     countKeyDA = 0;
 
     @property(cc.Node)
@@ -51,7 +52,14 @@ export default class ModeCtrl extends cc.Component {
     greenCheck: cc.Node = null;
     @property(cc.Animation)
     animCheck: cc.Animation = null;
+    isAnim = false;
 
+    checkSao = 3;
+    @property(cc.Label)
+    txtCoin: cc.Label = null;
+
+    @property(sp.Skeleton)
+    char: sp.Skeleton = null;
 
     protected onLoad(): void {
         Singleton.MODE_CTRL = this;
@@ -59,12 +67,62 @@ export default class ModeCtrl extends cc.Component {
     }
 
     protected start(): void {
-        Singleton.GAME_DATA.resetData();
+        // Singleton.GAME_DATA.resetData();
+
+        this.txtCoin.string = this.dataCoin.coin.toString();
         this.loadDataNew();
+
+
+        this.char.setSkin("boy");
+        this.char.setMix("false_answer", "idle_thinking", 0.2);
+        this.char.setMix("true_answer", "idle_thinking", 0.2);
+        this.char.setMix("win", "idle_thinking", 0.2);
+        this.char.setMix("false_answer", "idle", 0.2);
+        this.char.setMix("true_answer", "idle", 0.2);
+        this.char.setMix("win", "idle", 0.2);
+        this.char.setCompleteListener((trackEntry) => {
+            var animationName = trackEntry.animation ? trackEntry.animation.name : "";
+            if (animationName == "true_answer" || animationName == "win") {
+                let x = Math.round(Math.random() * 1);
+                if (x == 0) {
+                    this.setAnim("idle_thinking", true);
+                }
+                else {
+                    this.setAnim("idle", true);
+                }
+            }
+            if (animationName == "false_answer") {
+                let x = Math.round(Math.random() * 1);
+                if (x == 0) {
+                    this.setAnim("idle_thinking", true);
+                }
+                else {
+                    this.setAnim("idle", true);
+                }
+            }
+        });
     }
+    lastAnim = "";
+    setAnim(name: string, loop: boolean) {
+        if (name == this.lastAnim) return;
+        this.char.setAnimation(0, name, loop);
+        this.lastAnim = name;
+    }
+    AnimWin() {
+        let x = Math.round(Math.random() * 1);
+        if (x == 0) {
+            this.setAnim("true_answer", false);
+        }
+        else {
+            this.setAnim("win", false);
+        }
 
-
+    }
+    AnimLose() {
+        this.setAnim("false_answer", false);
+    }
     loadDataNew() {
+        this.countKeyDA = 0;
         if (this.typeMode == ModeType.CauDo) {
             cc.loader.loadRes("CauDo/C" + this.dataCauDo.currentQues.toString(), cc.TextAsset, (err, txt) => {
                 if (err) {
@@ -79,8 +137,8 @@ export default class ModeCtrl extends cc.Component {
                 this.instanceDapAn();
 
                 this.dapAn = this.convertToUpperCase(this.printDapAn());
-                this.countKeyDA = this.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length;
-         
+                // this.sumKeyDA = this.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length;
+
 
                 this.listDapAn = this.dapAn.split("");
             });
@@ -100,10 +158,7 @@ export default class ModeCtrl extends cc.Component {
                 this.instanceDapAn();
 
                 this.dapAn = this.convertToUpperCase(this.printDapAn());
-                this.countKeyDA = this.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length;
-
-                console.log(this.countKeyDA);
-                console.log("sssssssssss");
+                // this.sumKeyDA = this.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length;
                 this.listDapAn = this.dapAn.split("");
             });
             cc.loader.loadRes("DuoiHinh/IMG/img" + this.dataDuoiHinh.currentQues.toString(), cc.SpriteFrame, (err, img) => {
@@ -227,6 +282,18 @@ export default class ModeCtrl extends cc.Component {
     win() {
         this.isWin = true;
         this.popWin.active = true;
+        this.dataCoin.coin += 100;
+        localStorage.setItem("Coin", JSON.stringify(this.dataCoin));
+        WinCtrl.winCtrl.txtDapAn.string = this.printDapAn();
+        if (this.checkSao == 3) {
+            WinCtrl.winCtrl.show3sao();
+        }
+        else if (this.checkSao == 2) {
+            WinCtrl.winCtrl.show2sao();
+        }
+        else {
+            WinCtrl.winCtrl.show1sao();
+        }
         if (this.typeMode == ModeType.CauDo) {
             this.dataCauDo = JSON.parse(localStorage.getItem("CauDo"));
             this.dataCauDo.currentQues += 1;
@@ -240,14 +307,17 @@ export default class ModeCtrl extends cc.Component {
 
 
         setTimeout(() => {
-
-        }, 1000);
+            WinCtrl.winCtrl.btnNext.active = true;
+        }, 1500);
     }
     nextLevel() {
+        this.checkSao = 3;
+        this.greenCheck.active = false;
         this.loadDataNew();
         this.setNewData();
         this.isWin = false;
         this.popWin.active = false;
+        this.txtCoin.string = this.dataCoin.coin.toString();
     }
 
     // Set các ô nhập đáp án về trạng thái chưa chọn và làm sáng trở lại
@@ -257,7 +327,25 @@ export default class ModeCtrl extends cc.Component {
             this.arrayLabelKey[i].parent.getComponent(KeyInput).isChose = false;
             this.arrayLabelKey[i].parent.opacity = 255;
         }
-
+    }
+    @property(cc.Node)
+    ads: cc.Node = null;
+    openAds() {
+        this.ads.active = true;
+    }
+    closeAds() {
+        this.ads.active = false;
+        this.suggest();
+    }
+    openLink() {
+        let link = ""
+        if (this.typeMode == ModeType.CauDo) {
+            link = "https://www.tiktok.com/@tun_8.9";
+        }
+        else {
+            link = "https://www.facebook.com/dct89";
+        }
+        window.open(link);
     }
 
 }

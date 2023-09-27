@@ -16,9 +16,6 @@ export default class KeyInput extends cc.Component {
     isChose = false;
     setActionTouch() {
         if (this.isChose || Singleton.MODE_CTRL.isWin) return;
-       
-        
-
         for (let i = 0; i < Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length; i++) {
             if (Singleton.MODE_CTRL.arrayInputDapAn[i].getComponent(cc.Label).string == "") {
                 Singleton.MODE_CTRL.arrayInputDapAn[i].getComponent(cc.Label).string = this.keyString.string;
@@ -26,23 +23,46 @@ export default class KeyInput extends cc.Component {
                 this.isChose = true;
                 this.node.opacity = 0;
                 Singleton.MODE_CTRL.arrayInputDapAn[i].getComponent(KeyOutput).isChose = false;
+
                 // Check Đáp Án
                 var dapAn = "";
-                for (let i = 0; i <  Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length; i++) {
+                for (let i = 0; i < Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length; i++) {
+
                     dapAn = dapAn + Singleton.MODE_CTRL.arrayInputDapAn[i].getComponent(cc.Label).string.replace("  ", "");
+
                 }
                 // var x = dapAn.replace("  ", "");
                 //loai bo khoang trang loai bo in hoa in thuong
                 var regex = new RegExp(" ", "gi");
                 var x = dapAn.replace(regex, "");
                 console.log(x);
-                
+
                 // console.log(x);
                 // console.log(Singleton.CAU_DO_CTRL.convertToUpperCase(Singleton.CAU_DO_CTRL.printDapAn()));
-                if (x == Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn())) {
-                    Singleton.MODE_CTRL.win();
-                }
 
+                if (i == Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length - 1) {
+                    Singleton.MODE_CTRL.animCheck.play();
+                    if (x == Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn())) {
+                        Singleton.MODE_CTRL.win();
+                        setTimeout(() => {
+                            Singleton.MODE_CTRL.greenCheck.width = 100 * Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length + 100;
+                            Singleton.MODE_CTRL.greenCheck.active = true;
+                            for (let j = 0; j < Singleton.MODE_CTRL.arrayLabelKey.length; j++) {
+                                    Singleton.MODE_CTRL.arrayInputDapAn[j].parent.color = cc.color(100, 200, 30, 255);                        
+                            }
+                        }, 1000);
+                    }
+                    else {
+                        setTimeout(() => {
+                            Singleton.MODE_CTRL.redCheck.width = 100 * Singleton.MODE_CTRL.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length + 100;
+                            Singleton.MODE_CTRL.redCheck.active = true;
+                            setTimeout(() => {
+                                Singleton.MODE_CTRL.redCheck.active = false;
+
+                            }, 1000);
+                        }, 1000);
+                    }
+                }
                 return;
             }
         }

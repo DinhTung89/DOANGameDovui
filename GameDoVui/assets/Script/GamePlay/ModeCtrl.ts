@@ -43,6 +43,14 @@ export default class ModeCtrl extends cc.Component {
 
     dataCauDo = JSON.parse(localStorage.getItem("CauDo"));
     dataDuoiHinh = JSON.parse(localStorage.getItem("DuoiHinh"));
+    countKeyDA = 0;
+
+    @property(cc.Node)
+    redCheck: cc.Node = null;
+    @property(cc.Node)
+    greenCheck: cc.Node = null;
+    @property(cc.Animation)
+    animCheck: cc.Animation = null;
 
 
     protected onLoad(): void {
@@ -71,6 +79,9 @@ export default class ModeCtrl extends cc.Component {
                 this.instanceDapAn();
 
                 this.dapAn = this.convertToUpperCase(this.printDapAn());
+                this.countKeyDA = this.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length;
+         
+
                 this.listDapAn = this.dapAn.split("");
             });
         }
@@ -89,6 +100,10 @@ export default class ModeCtrl extends cc.Component {
                 this.instanceDapAn();
 
                 this.dapAn = this.convertToUpperCase(this.printDapAn());
+                this.countKeyDA = this.convertToUpperCase(Singleton.MODE_CTRL.printDapAn()).length;
+
+                console.log(this.countKeyDA);
+                console.log("sssssssssss");
                 this.listDapAn = this.dapAn.split("");
             });
             cc.loader.loadRes("DuoiHinh/IMG/img" + this.dataDuoiHinh.currentQues.toString(), cc.SpriteFrame, (err, img) => {
@@ -185,10 +200,10 @@ export default class ModeCtrl extends cc.Component {
     // Sử dụng gợi ý
     isSuggest = false;
     suggest() {
-        if(this.isSuggest)return;
-        this.isSuggest=true;
+        if (this.isSuggest) return;
+        this.isSuggest = true;
         setTimeout(() => {
-            this.isSuggest=false;
+            this.isSuggest = false;
         }, 100);
         for (let i = 0; i < this.convertToUpperCase(this.printDapAn()).length; i++) {
             if (this.arrayInputDapAn[i].getComponent(cc.Label).string == "") {
@@ -225,11 +240,14 @@ export default class ModeCtrl extends cc.Component {
 
 
         setTimeout(() => {
-            this.loadDataNew();
-            this.setNewData();
-            this.isWin = false;
-            this.popWin.active = false;
+
         }, 1000);
+    }
+    nextLevel() {
+        this.loadDataNew();
+        this.setNewData();
+        this.isWin = false;
+        this.popWin.active = false;
     }
 
     // Set các ô nhập đáp án về trạng thái chưa chọn và làm sáng trở lại

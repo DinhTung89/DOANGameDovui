@@ -1,0 +1,211 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "CheckDA",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "ODapAn 1": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      },
+      "ODapAn 2": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      },
+      "ODapAn 3": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      },
+      "ODapAn 4": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      },
+      "ODapAn 5": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      },
+      "ODapAn 6": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      },
+      "ODapAn 7": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      },
+      "ODapAn 8": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      },
+      "ODapAn 9": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      },
+      "ODapAn 10": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      },
+      "ODapAn 11": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      },
+      "ODapAn 12": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      },
+      "ODapAn 13": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      },
+      "ODapAn 14": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": -360
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

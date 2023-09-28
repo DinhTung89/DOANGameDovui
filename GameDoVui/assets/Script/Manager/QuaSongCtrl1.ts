@@ -123,7 +123,7 @@ export default class QuaSongCtrl1 extends cc.Component {
             this.ChangeParent(this.nhutnhat, this.node);
             let posG;
             if (this.nnBoTrai) {
-                posG = cc.v3(-380, -460, 0);
+                posG = cc.v3(-520, -380, 0);
                 this.currentState.left.nn = 1;
                 this.currentState.right.nn = 0;
             }
@@ -332,7 +332,7 @@ export default class QuaSongCtrl1 extends cc.Component {
             this.isMoveOnRaft = true;
             let posG;
             if (this.cd1BoTrai) {
-                posG = cc.v3(-200, -500, 0);
+                posG = cc.v3(-380, -460, 0);
                 this.currentState.left.cd1 = 1;
                 this.currentState.right.cd1 = 0;
             }
@@ -507,7 +507,7 @@ export default class QuaSongCtrl1 extends cc.Component {
     moveRaft() {
         this.checkSate();
         if (this.isFail) return;
-        if (!this.cd2OnRaft && !this.cd1OnRaft && !this.nnOnRaft && !this.cd1OnRaft) {
+        if (!this.cd2OnRaft && !this.cd1OnRaft && !this.nnOnRaft && !this.knOnRaft) {
             console.log("can co nguoi o tren be");
             // this.pop.openNguoi();
             return;

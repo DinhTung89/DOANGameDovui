@@ -1,4 +1,6 @@
+import QuaSongCtrl from "../Manager/QuaSongCtrl";
 import Singleton from "../Manager/Singleton";
+import GameQuaSong from "./GameQuaSong";
 
 
 const { ccclass, property } = cc._decorator;
@@ -22,17 +24,27 @@ export default class WinCtrl extends cc.Component {
     protected onLoad(): void {
         WinCtrl.winCtrl = this;
     }
-
+    // protected onEnable(): void {
+    //     this.sao1.active = false;
+    //     this.sao2.active = false;
+    //     this.sao3.active = false;
+    //     this.btnNext.active = false;
+    // }
     show1sao() {
+
+
         setTimeout(() => {
             this.sao1.active = true;
             let ef = cc.instantiate(this.efSao);
             ef.setParent(this.sao1.parent);
             ef.setPosition(this.sao1.position);
+            this.btnNext.active = true;
         }, 500);
     }
 
     show2sao() {
+
+
         setTimeout(() => {
             this.sao1.active = true;
             let ef = cc.instantiate(this.efSao);
@@ -43,30 +55,33 @@ export default class WinCtrl extends cc.Component {
                 let ef = cc.instantiate(this.efSao);
                 ef.setParent(this.sao2.parent);
                 ef.setPosition(this.sao2.position);
+                this.btnNext.active = true;
             }, 500);
         }, 500);
     }
 
     show3sao() {
-        setTimeout(() => {
+        this.scheduleOnce(() => {
             this.sao1.active = true;
             let ef = cc.instantiate(this.efSao);
             ef.setParent(this.sao1.parent);
             ef.setPosition(this.sao1.position);
-            setTimeout(() => {
+            this.scheduleOnce(() => {
                 this.sao2.active = true;
                 let ef = cc.instantiate(this.efSao);
                 ef.setParent(this.sao2.parent);
                 ef.setPosition(this.sao2.position);
-                setTimeout(() => {
+                this.scheduleOnce(() => {
                     this.sao3.active = true;
                     let ef = cc.instantiate(this.efSao);
                     ef.setParent(this.sao3.parent);
                     ef.setPosition(this.sao3.position);
-                }, 500);
-            }, 500);
+                    this.btnNext.active = true;
+                }, 0.5);
 
-        }, 500);
+            }, 0.5);
+
+        }, 0.5);
     }
 
     resetSao() {
@@ -80,6 +95,17 @@ export default class WinCtrl extends cc.Component {
         this.resetSao();
         this.node.active = false;
     }
+    nextLevelQSSCC() {
+        this.btnNext.active = false;
+        this.resetSao();
+        GameQuaSong.qs.openLevelSCC();
 
+    }
+
+    nextLevelQSLinh() {
+        this.btnNext.active = false;
+        this.resetSao();
+        GameQuaSong.qs.openLevelLinhQS();
+    }
 
 }

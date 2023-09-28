@@ -8478,7 +8478,9 @@
     "txtCoin": {
       "__id__": 280
     },
-    "char": null,
+    "char": {
+      "__id__": 11
+    },
     "ads": {
       "__id__": 287
     },
@@ -13565,7 +13567,7 @@
         "__id__": 564
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 594
@@ -18184,8 +18186,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 328.46,
-      "height": 106.8
+      "width": 312.52,
+      "height": 119.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -18587,7 +18589,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 406.16,
+      "width": 389.6,
       "height": 56.4
     },
     "_anchorPoint": {
@@ -18705,7 +18707,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 187.62,
+      "width": 171.95,
       "height": 69
     },
     "_anchorPoint": {
@@ -18823,7 +18825,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 138.54,
+      "width": 97.9,
       "height": 69
     },
     "_anchorPoint": {

@@ -1,4 +1,4 @@
-import PopQuaSong from "./PopQuaSong";
+import WinCtrl from "../GamePlay/WinCtrl";
 import Singleton from "./Singleton";
 
 const { ccclass, property } = cc._decorator;
@@ -22,8 +22,18 @@ export default class QuaSongCtrl extends cc.Component {
     pos2: cc.Node = null;
     @property(cc.Node)
     btnMove: cc.Node = null;
-    @property(PopQuaSong)
-    pop: PopQuaSong = null;
+
+    @property(cc.Node)
+    soiAnCuu: cc.Node = null;
+    @property(cc.Node)
+    cuuAnCuCAi: cc.Node = null;
+    @property(cc.Node)
+    nguoiLaiDo: cc.Node = null;
+
+
+    countFail = 0;
+    @property(cc.Node)
+    popWin: cc.Node = null;
 
     //Cuu an bap
     State1 = {
@@ -60,10 +70,44 @@ export default class QuaSongCtrl extends cc.Component {
         left: { wolves: 1, sheep: 1, radish: 1, farmer: 1 },
         right: { wolves: 0, sheep: 0, radish: 0, farmer: 0 }
     }
+
     arrayState: any[] = [];
     protected onLoad(): void {
         Singleton.QUA_SONG_CTRL = this;
     }
+    reSet() {
+        this.countFail = 5;
+
+        this.closeNguoi();
+        this.closeSoiAnCuu();
+        this.closeCuuAnCucai();
+
+
+        this.popWin.active = false;
+        this.currentState = {
+            left: { wolves: 1, sheep: 1, radish: 1, farmer: 1 },
+            right: { wolves: 0, sheep: 0, radish: 0, farmer: 0 }
+        }
+        this.ChangeParent(this.soi, this.node);
+        this.ChangeParent(this.cuu, this.node);
+        this.ChangeParent(this.cuCai, this.node);
+        this.ChangeParent(this.farmer, this.node);
+
+        this.soi.setPosition(cc.v3(-350, -460, 0));
+        this.cuu.setPosition(cc.v3(-500, -400, 0));
+        this.cuCai.setPosition(cc.v3(-200, -500, 0));
+        this.farmer.setPosition(cc.v3(-630, -300, 0));
+        this.raft.setPosition(cc.v3(-230, -260, 0));
+
+        this.soiBoTrai = true;
+        this.cuuBoTrai = true;
+        this.caiBoTrai = true;
+        this.nguoiBoTrai = true;
+        this.raftBoTrai = true;
+
+        this.btnMove.getChildByName("muiten").angle = 0;
+    }
+
     protected start(): void {
         this.arrayState.push(this.State1);
         this.arrayState.push(this.State2);
@@ -77,12 +121,51 @@ export default class QuaSongCtrl extends cc.Component {
         this.farmer.on(cc.Node.EventType.TOUCH_START, this.nguoiLenThuyen, this);
 
     }
+
+
+
+
+
     countRaft = 0;
     pos1On = false;
     pos2On = false;
     isMoveOnRaft = false;
 
+    closeSoiAnCuu() {
+        this.soiAnCuu.active = false;
+        this.btnMove.active = true;
+    }
 
+    closeCuuAnCucai() {
+        this.cuuAnCuCAi.active = false;
+        this.btnMove.active = true;
+
+    }
+
+    closeNguoi() {
+        this.nguoiLaiDo.active = false;
+        this.btnMove.active = true;
+
+    }
+
+
+    openSoiAnCuu() {
+        this.soiAnCuu.active = true;
+        this.btnMove.active = false;
+
+    }
+
+    openCuuAnCucai() {
+        this.cuuAnCuCAi.active = true;
+        this.btnMove.active = false;
+
+    }
+
+    openNguoi() {
+        this.nguoiLaiDo.active = true;
+        this.btnMove.active = false;
+
+    }
 
 
 
@@ -121,7 +204,7 @@ export default class QuaSongCtrl extends cc.Component {
             this.ChangeParent(this.soi, this.node);
             let posG;
             if (this.soiBoTrai) {
-                posG = cc.v3(-380, -460, 0);
+                posG = cc.v3(-350, -460, 0);
                 this.currentState.left.wolves = 1;
                 this.currentState.right.wolves = 0;
             }
@@ -521,7 +604,8 @@ export default class QuaSongCtrl extends cc.Component {
     raftBoTrai = true;
     moveRaft() {
         if (!this.farmerOnRaft) {
-            this.pop.openNguoi();
+            this.openNguoi();
+            this.countFail -= 1;
             return;
         }
         this.checkSate();
@@ -586,7 +670,7 @@ export default class QuaSongCtrl extends cc.Component {
                     this.ChangeParent(this.soi, this.node);
                     let posG;
                     if (this.soiBoTrai) {
-                        posG = cc.v3(-380, -460, 0);
+                        posG = cc.v3(-350, -460, 0);
                     }
                     else {
                         posG = cc.v3(300, -60, 0);
@@ -660,7 +744,8 @@ export default class QuaSongCtrl extends cc.Component {
             && this.currentState.left.radish == this.arrayState[2].left.radish
             && this.currentState.left.farmer == this.arrayState[2].left.farmer) {
             console.log("Cừu ăn củ cải");
-            this.pop.openCuuAnCucai();
+            this.openCuuAnCucai();
+            this.countFail -= 1;
             this.isFail = true;
         }
         else if (this.currentState.left.wolves == this.arrayState[1].left.wolves
@@ -677,7 +762,8 @@ export default class QuaSongCtrl extends cc.Component {
             && this.currentState.left.sheep == this.arrayState[4].left.sheep
             && this.currentState.left.radish == this.arrayState[4].left.radish
             && this.currentState.left.farmer == this.arrayState[4].left.farmer) {
-            this.pop.openSoiAnCuu();
+            this.openSoiAnCuu();
+            this.countFail -= 1;
             console.log("Sói ăn cừu");
             this.isFail = true;
         }
@@ -686,11 +772,37 @@ export default class QuaSongCtrl extends cc.Component {
             && this.currentState.left.radish == this.arrayState[5].left.radish
             && this.currentState.left.farmer == this.arrayState[5].left.farmer) {
             console.log("Win");
+            setTimeout(() => {
+                this.Win();
+            }, 1000);
             this.isFail = false;
         }
         else {
             this.isFail = false;
         }
+
+    }
+
+    Win() {
+
+        this.popWin.active = true;
+
+        if (this.countFail > 3) {
+            setTimeout(() => {
+                WinCtrl.winCtrl.show3sao();
+            }, 300);
+        }
+        else if (this.countFail < 4 && this.countFail > 1) {
+            setTimeout(() => {
+                WinCtrl.winCtrl.show2sao();
+            }, 300);
+        }
+        else {
+            setTimeout(() => {
+                WinCtrl.winCtrl.show1sao();
+            }, 300);
+        }
+
 
     }
     changePosition(currentNode: cc.Node, toNode?: cc.Node): cc.Vec3 {

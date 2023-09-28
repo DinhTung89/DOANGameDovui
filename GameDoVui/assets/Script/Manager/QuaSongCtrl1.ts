@@ -1,4 +1,4 @@
-import PopQuaSong from "./PopQuaSong";
+import WinCtrl from "../GamePlay/WinCtrl";
 import Singleton from "./Singleton";
 
 const { ccclass, property } = cc._decorator;
@@ -30,6 +30,10 @@ export default class QuaSongCtrl1 extends cc.Component {
     kieuNgao1m: cc.Node = null;
     @property(cc.Node)
     nguoilaido: cc.Node = null;
+    countFail = 0;
+    @property(cc.Node)
+    popWin: cc.Node = null;
+
     //Close Pop
     closeNNSo1m() {
         this.nhunhatSo1m.active = false;
@@ -46,16 +50,19 @@ export default class QuaSongCtrl1 extends cc.Component {
 
     //Open Pop
     openNNSo1m() {
+        this.countFail -= 1;
         this.nhunhatSo1m.active = true;
         this.btnMove.active = false;
     }
 
     openKN1M() {
+        this.countFail -= 1;
         this.kieuNgao1m.active = true;
         this.btnMove.active = false;
     }
 
     openNguoi() {
+        this.countFail -= 1;
         this.nguoilaido.active = true;
         this.btnMove.active = false;
     }
@@ -78,10 +85,43 @@ export default class QuaSongCtrl1 extends cc.Component {
         left: { nn: 1, kn: 1, cd1: 1, cd2: 1 },
         right: { nn: 0, kn: 0, cd1: 0, cd2: 0 }
     }
+
     arrayState: any[] = [];
     protected onLoad(): void {
         Singleton.QUA_SONG_CTRL1 = this;
     }
+    reSet() {
+        this.countFail = 5;
+
+        this.closeNguoi();
+        this.closeKN1M();
+        this.closeNNSo1m();
+        this.popWin.active = false;
+        this.currentState = {
+            left: { nn: 1, kn: 1, cd1: 1, cd2: 1 },
+            right: { nn: 0, kn: 0, cd1: 0, cd2: 0 }
+        }
+
+        this.ChangeParent(this.nhutnhat, this.node);
+        this.ChangeParent(this.kieungao, this.node);
+        this.ChangeParent(this.candam1, this.node);
+        this.ChangeParent(this.candam2, this.node);
+
+        this.nhutnhat.setPosition(cc.v3(-520, -380, 0));
+        this.kieungao.setPosition(cc.v3(-630, -300, 0));
+        this.candam1.setPosition(cc.v3(-380, -460, 0));
+        this.candam2.setPosition(cc.v3(-200, -500, 0));
+        this.raft.setPosition(cc.v3(-230, -260, 0));
+
+        this.knBoTrai = true;
+        this.nnBoTrai = true;
+        this.cd1BoTrai = true;
+        this.cd2BoTrai = true;
+        this.raftBoTrai = true;
+
+        this.btnMove.getChildByName("muiten").angle = 0;
+    }
+
     protected start(): void {
         this.arrayState.push(this.State1);
         this.arrayState.push(this.State2);
@@ -514,8 +554,7 @@ export default class QuaSongCtrl1 extends cc.Component {
         this.checkSate();
         if (this.isFail) return;
         if (!this.cd2OnRaft && !this.cd1OnRaft && !this.nnOnRaft && !this.knOnRaft) {
-            console.log("can co nguoi o tren be");
-            // this.pop.openNguoi();
+            this.openNguoi();
             return;
         }
 
@@ -523,11 +562,11 @@ export default class QuaSongCtrl1 extends cc.Component {
             || this.knOnRaft && this.cd1OnRaft
             || this.knOnRaft && this.cd2OnRaft
         ) {
-            console.log("kiêu ngạo không muốn đi cùng ai");
+            this.openKN1M();
             return;
         }
         if (this.nnOnRaft && !this.cd1OnRaft && !this.cd2OnRaft) {
-            console.log("nhut nhat khong the o mot minh");
+            this.openNNSo1m();
             return;
         }
 
@@ -698,7 +737,7 @@ export default class QuaSongCtrl1 extends cc.Component {
             && this.currentState.left.cd2 == this.arrayState[1].left.cd2
         ) {
             console.log("Nhút nhát không thể ở một mình");
-            // this.pop.openCuuAnCucai();
+            this.openNNSo1m();
             this.isFail = true;
         }
 
@@ -707,11 +746,30 @@ export default class QuaSongCtrl1 extends cc.Component {
             && this.currentState.left.cd1 == this.arrayState[2].left.cd1
             && this.currentState.left.cd2 == this.arrayState[2].left.cd2) {
             console.log("Win");
+            setTimeout(() => {
+                this.Win();
+            }, 1000);
             this.isFail = false;
         }
         else {
             this.isFail = false;
         }
+
+    }
+
+    Win() {
+        this.popWin.active = true;
+        setTimeout(() => {
+            if (this.countFail > 3) {
+                WinCtrl.winCtrl.show3sao();
+            }
+            else if (this.countFail < 4 && this.countFail > 1) {
+                WinCtrl.winCtrl.show2sao();
+            }
+            else {
+                WinCtrl.winCtrl.show1sao();
+            }
+        }, 300);
 
     }
     changePosition(currentNode: cc.Node, toNode?: cc.Node): cc.Vec3 {

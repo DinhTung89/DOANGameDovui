@@ -104,6 +104,8 @@ export default class QuaSongCtrl1 extends cc.Component {
     nnP2 = false;
     nnBoTrai = true;
     NNLenThuyen() {
+        if (this.nnBoTrai && !this.raftBoTrai || !this.nnBoTrai && this.raftBoTrai) return;
+
         if (this.isMoveOnRaft) return;
         // console.log(this.currentState);
 
@@ -128,7 +130,7 @@ export default class QuaSongCtrl1 extends cc.Component {
                 this.currentState.right.nn = 0;
             }
             else {
-                posG = cc.v3(300, -60, 0);
+                posG = cc.v3(100, 10, 0);
                 this.currentState.left.nn = 0;
                 this.currentState.right.nn = 1;
             }
@@ -205,6 +207,7 @@ export default class QuaSongCtrl1 extends cc.Component {
     knP2 = false;
     knBoTrai = true;
     KNLenThuyen() {
+        if (this.knBoTrai && !this.raftBoTrai || !this.knBoTrai && this.raftBoTrai) return;
 
         if (this.isMoveOnRaft) return;
 
@@ -224,12 +227,12 @@ export default class QuaSongCtrl1 extends cc.Component {
             this.isMoveOnRaft = true;
             let posG;
             if (this.knBoTrai) {
-                posG = cc.v3(-500, -400, 0);
+                posG = cc.v3(-630, -300, 0);
                 this.currentState.left.kn = 1;
                 this.currentState.right.kn = 0;
             }
             else {
-                posG = cc.v3(150, -25, 0);
+                posG = cc.v3(10, 50, 0);
                 this.currentState.left.kn = 0;
                 this.currentState.right.kn = 1;
 
@@ -306,6 +309,8 @@ export default class QuaSongCtrl1 extends cc.Component {
     cd1P2 = false;
     cd1BoTrai = true;
     CD1LenThuyen() {
+        if (this.cd1BoTrai && !this.raftBoTrai || !this.cd1BoTrai && this.raftBoTrai) return;
+
         // console.log(this.countRaft);
         if (this.isMoveOnRaft) return;
 
@@ -337,7 +342,7 @@ export default class QuaSongCtrl1 extends cc.Component {
                 this.currentState.right.cd1 = 0;
             }
             else {
-                posG = cc.v3(444, -100, 0);
+                posG = cc.v3(200, -40, 0);
                 this.currentState.left.cd1 = 0;
                 this.currentState.right.cd1 = 1;
             }
@@ -414,6 +419,7 @@ export default class QuaSongCtrl1 extends cc.Component {
     cd2P2 = false;
     cd2BoTrai = true;
     CD2LenThuyen() {
+        if (this.cd2BoTrai && !this.raftBoTrai || !this.cd2BoTrai && this.raftBoTrai) return;
 
         let t = cc.tween;
         let pos: cc.Node = null;
@@ -431,12 +437,12 @@ export default class QuaSongCtrl1 extends cc.Component {
             this.isMoveOnRaft = true;
             let posG;
             if (this.cd2BoTrai) {
-                posG = cc.v3(-630, -300, 0);
+                posG = cc.v3(-200, -500, 0);
                 this.currentState.left.cd2 = 1;
                 this.currentState.right.cd2 = 0;
             }
             else {
-                posG = cc.v3(20, 30, 0);
+                posG = cc.v3(300, -70, 0);
                 this.currentState.left.cd2 = 0;
                 this.currentState.right.cd2 = 1;
             }
@@ -537,7 +543,6 @@ export default class QuaSongCtrl1 extends cc.Component {
             .to(0.5, { position: pos })
             .call(() => {
                 this.raftBoTrai = !this.raftBoTrai;
-                this.cd2BoTrai = !this.cd2BoTrai;
                 if (this.raftBoTrai) {
                     this.btnMove.getChildByName("muiten").angle = 0;
                 }
@@ -551,10 +556,10 @@ export default class QuaSongCtrl1 extends cc.Component {
                     this.ChangeParent(this.candam1, this.node);
                     let posG;
                     if (this.cd1BoTrai) {
-                        posG = cc.v3(-200, -500, 0);
+                        posG = cc.v3(-380, -460, 0);
                     }
                     else {
-                        posG = cc.v3(444, -100, 0);
+                        posG = cc.v3(200, -40, 0);
                     }
                     t(this.candam1)
                         .parallel(
@@ -587,7 +592,7 @@ export default class QuaSongCtrl1 extends cc.Component {
                         posG = cc.v3(-200, -500, 0);
                     }
                     else {
-                        posG = cc.v3(444, -100, 0);
+                        posG = cc.v3(300, -70, 0);
                     }
                     t(this.candam2)
                         .parallel(
@@ -617,10 +622,10 @@ export default class QuaSongCtrl1 extends cc.Component {
                     this.ChangeParent(this.nhutnhat, this.node);
                     let posG;
                     if (this.nnBoTrai) {
-                        posG = cc.v3(-380, -460, 0);
+                        posG = cc.v3(-520, -380, 0);
                     }
                     else {
-                        posG = cc.v3(300, -60, 0);
+                        posG = cc.v3(100, 10, 0);
                     }
                     t(this.nhutnhat)
                         .parallel(
@@ -648,10 +653,10 @@ export default class QuaSongCtrl1 extends cc.Component {
                     this.ChangeParent(this.kieungao, this.node);
                     let posG;
                     if (this.knBoTrai) {
-                        posG = cc.v3(-500, -400, 0);
+                        posG = cc.v3(-630, -300, 0);
                     }
                     else {
-                        posG = cc.v3(150, -25, 0);
+                        posG = cc.v3(10, 50, 0);
 
                     }
                     t(this.kieungao)

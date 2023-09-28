@@ -92,6 +92,7 @@ export default class QuaSongCtrl extends cc.Component {
     soiP2 = false;
     soiBoTrai = true;
     SoiLenThuyen() {
+        if (this.soiBoTrai && !this.raftBoTrai || !this.soiBoTrai && this.raftBoTrai) return;
         if (this.isMoveOnRaft) return;
 
         // if (this.currentState.left.wolves == 1) {
@@ -203,7 +204,7 @@ export default class QuaSongCtrl extends cc.Component {
     cuuBoTrai = true;
     CuuLenThuyen() {
         // console.log(this.countRaft);
-
+        if (this.cuuBoTrai && !this.raftBoTrai || !this.cuuBoTrai && this.raftBoTrai) return;
         if (this.isMoveOnRaft) return;
 
         // if (this.currentState.left.sheep == 1) {
@@ -314,6 +315,7 @@ export default class QuaSongCtrl extends cc.Component {
     caiBoTrai = true;
     CaiLenThuyen() {
         // console.log(this.countRaft);
+        if (this.caiBoTrai && !this.raftBoTrai || !this.caiBoTrai && this.raftBoTrai) return;
         if (this.isMoveOnRaft) return;
 
         // if (this.currentState.left.radish == 1) {
@@ -421,6 +423,7 @@ export default class QuaSongCtrl extends cc.Component {
     farmerP2 = false;
     nguoiBoTrai = true;
     nguoiLenThuyen() {
+        if (this.nguoiBoTrai && !this.raftBoTrai || !this.nguoiBoTrai && this.raftBoTrai) return;
         // if (this.currentState.left.farmer == 1) {
         //     this.currentState.left.farmer = 0;
         //     this.currentState.right.farmer = 1;
@@ -539,7 +542,7 @@ export default class QuaSongCtrl extends cc.Component {
                 if (this.raftBoTrai) {
                     this.btnMove.getChildByName("muiten").angle = 0;
                 }
-                else{
+                else {
                     this.btnMove.getChildByName("muiten").angle = 180;
 
                 }

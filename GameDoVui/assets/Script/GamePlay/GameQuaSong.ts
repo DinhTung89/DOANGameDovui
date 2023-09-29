@@ -23,16 +23,17 @@ export default class GameQuaSong extends cc.Component {
 
 
     start() {
-        if (this.dataQuaSong.currentQues == 1) {
-            this.lockLevel2.active = true;
-        }
-        else {
+        if (this.dataQuaSong.currentQues == 2) {
             this.lockLevel2.active = false;
         }
+
         this.popSelect.active = true;
 
     }
     openLevelLinhQS() {
+        this.lockLevel2.active = false;
+        console.log("ac");
+
         if (this.popSelect.active) {
             this.popSelect.active = false;
         }
@@ -55,8 +56,9 @@ export default class GameQuaSong extends cc.Component {
         this.popSelect.active = true;
         this.soiCuuCai.active = false;
         this.linhQuaSong.active = false;
+        cc.director.loadScene("QuaSong");
     }
-  
+
 
 
 }

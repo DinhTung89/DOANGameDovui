@@ -10,12 +10,18 @@ export default class GameDoVui extends cc.Component {
     @property(cc.Node)
     gameDuoiHinh: cc.Node = null;
     dataNameNV = JSON.parse(localStorage.getItem("NameNV"));
-    @property(cc.Node)
-    selectNV: cc.Node = null;
+    dataSelect = JSON.parse(localStorage.getItem("Select"));
+
     start() {
-        if (this.dataNameNV.isFirst == false) {
-            this.selectNV.active = true;
+        if (this.dataSelect.mode == 1) {
+            this.gameDuoiHinh.active = false;
+            this.gameCauDo.active = true;
         }
+        if (this.dataSelect.mode == 2) {
+            this.gameCauDo.active = false;
+            this.gameDuoiHinh.active = true;
+        }
+
     }
 
 }

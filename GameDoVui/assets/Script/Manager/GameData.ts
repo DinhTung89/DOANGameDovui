@@ -8,14 +8,17 @@ export default class GameData extends cc.Component {
 
     protected onLoad(): void {
         Singleton.GAME_DATA = this;
+        this.initData();
     }
     start() {
-        this.initData();
+      
     }
     initData() {
         // Khởi tạo các lớp dữ liệu
-        const KimCuong = {
-            soluong: 0
+        const Select = {
+            mode: 1,
+            openQS: false,
+            openDV: false
         };
         const ClassCauDo = {
             currentQues: 1,
@@ -72,11 +75,11 @@ export default class GameData extends cc.Component {
         }
 
 
-        var JSDataKimCuong = localStorage.getItem("KimCuong");
-        if (JSDataKimCuong == null) {
-            console.log("SET DATA KimCuong");
-            const dataKimCuongJS = JSON.stringify(KimCuong);
-            localStorage.setItem('KimCuong', dataKimCuongJS);
+        var JSDataSelect = localStorage.getItem("Select");
+        if (JSDataSelect == null) {
+            console.log("SET DATA Select");
+            const datsSelectJS = JSON.stringify(Select);
+            localStorage.setItem('Select', datsSelectJS);
         }
 
     }
@@ -84,25 +87,32 @@ export default class GameData extends cc.Component {
         console.log("ClearData");
 
         cc.sys.localStorage.clear();
+        this.initData();
+        cc.director.loadScene("Home");
     }
     resetData() {
         console.log("ReSetData");
 
         var JSDataCauDO = localStorage.getItem("CauDo");
         var JSDataDuoiHinh = localStorage.getItem("DuoiHinh");
-        var JSDataKimCuong = localStorage.getItem("KimCuong");
         var JSDataQuaSong = localStorage.getItem("QuaSong");
         var JSName = localStorage.getItem("NameNV");
         var JSCOIN = localStorage.getItem("Coin");
+        var JSSelect = localStorage.getItem("Select");
 
         var DataCauDo = JSON.parse(JSDataCauDO);
         var DataDuoiHinh = JSON.parse(JSDataDuoiHinh);
-        var DataKimCuong = JSON.parse(JSDataKimCuong);
         var DataQuaSong = JSON.parse(JSDataQuaSong);
         var DataName = JSON.parse(JSName);
         var DataCoin = JSON.parse(JSCOIN);
+        var DataSelect = JSON.parse(JSSelect);
 
-
+        if (JSSelect != null) {
+            DataSelect.mode = 1;
+            DataSelect.openQS = false;
+            DataSelect.openDV = false;
+            localStorage.setItem("Select", JSON.stringify(DataSelect));
+        }
         if (JSDataCauDO != null) {
             DataCauDo.currentQues = 1;
             DataCauDo.pass = false;
@@ -113,10 +123,7 @@ export default class GameData extends cc.Component {
             DataDuoiHinh.pass = false;
             localStorage.setItem("DuoiHinh", JSON.stringify(DataDuoiHinh));
         }
-        if (JSDataKimCuong != null) {
-            DataKimCuong.soluong = 0;
-            localStorage.setItem("KimCuong", JSON.stringify(DataKimCuong));
-        }
+
         if (JSDataQuaSong != null) {
             DataQuaSong.currentQues = 1;
             localStorage.setItem("QuaSong", JSON.stringify(DataQuaSong));

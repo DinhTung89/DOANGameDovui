@@ -72,7 +72,7 @@ export default class ModeCtrl extends cc.Component {
         this.loadDataNew();
 
 
-        this.char.setSkin("boy");
+        // this.char.setSkin("boy");
         this.char.setMix("false_answer", "idle_thinking", 0.2);
         this.char.setMix("true_answer", "idle_thinking", 0.2);
         this.char.setMix("win", "idle_thinking", 0.2);
@@ -312,11 +312,11 @@ export default class ModeCtrl extends cc.Component {
     nextLevel() {
         this.checkSao = 3;
         this.greenCheck.active = false;
-        this.loadDataNew();
-        this.setNewData();
         this.isWin = false;
         this.popWin.active = false;
         this.txtCoin.string = this.dataCoin.coin.toString();
+        this.loadDataNew();
+        this.setNewData();
     }
 
     // Set các ô nhập đáp án về trạng thái chưa chọn và làm sáng trở lại
@@ -325,6 +325,9 @@ export default class ModeCtrl extends cc.Component {
         for (let i = 0; i < this.arrayLabelKey.length; i++) {
             this.arrayLabelKey[i].parent.getComponent(KeyInput).isChose = false;
             this.arrayLabelKey[i].parent.opacity = 255;
+        }
+        for (let i = 0; i < this.arrayInputDapAn.length; i++) {
+            this.arrayInputDapAn[i].getComponent(KeyOutput).isSuggest = false;
         }
     }
     @property(cc.Node)

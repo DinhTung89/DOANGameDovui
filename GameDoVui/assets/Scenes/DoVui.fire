@@ -75,16 +75,16 @@
         "__id__": 303
       },
       {
-        "__id__": 646
+        "__id__": 645
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 648
+        "__id__": 647
       },
       {
-        "__id__": 649
+        "__id__": 648
       }
     ],
     "_prefab": null,
@@ -156,10 +156,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 644
+        "__id__": 643
       },
       {
-        "__id__": 645
+        "__id__": 644
       }
     ],
     "_prefab": null,
@@ -25959,16 +25959,13 @@
         "__id__": 637
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 641
       },
       {
         "__id__": 642
-      },
-      {
-        "__id__": 643
       }
     ],
     "_prefab": null,
@@ -27330,21 +27327,6 @@
     "_id": "12wxa/XK5OTqDgnO0JK69D"
   },
   {
-    "__type__": "ec4edLIxGdLRbkDSagjrHWj",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 613
-    },
-    "_enabled": true,
-    "nam": null,
-    "nu": null,
-    "boxName": null,
-    "infor": null,
-    "btnAccept": null,
-    "_id": "36ILDC0QtHrrJgg7ILydhJ"
-  },
-  {
     "__type__": "cc.Camera",
     "_name": "",
     "_objFlags": 0,
@@ -27418,7 +27400,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 647
+        "__id__": 646
       }
     ],
     "_prefab": null,
@@ -27474,12 +27456,15 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 646
+      "__id__": 645
     },
     "_enabled": true,
-    "gameCauDo": null,
-    "gameDuoiHinh": null,
-    "selectNV": null,
+    "gameCauDo": {
+      "__id__": 4
+    },
+    "gameDuoiHinh": {
+      "__id__": 334
+    },
     "_id": "c7gm98iRpE5Y8LSjtj92Bw"
   },
   {

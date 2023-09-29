@@ -54,6 +54,7 @@ export default class KeyInput extends cc.Component {
                             }
                             setTimeout(() => {
                                 Singleton.MODE_CTRL.win();
+                                Singleton.MODE_CTRL.isAnim = false;
                             }, 500);
                         }, 1000);
                     }

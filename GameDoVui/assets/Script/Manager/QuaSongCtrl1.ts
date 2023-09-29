@@ -198,12 +198,7 @@ export default class QuaSongCtrl1 extends cc.Component {
         this.reSet();
         this.resetSao();
         GameQuaSong.qs.openSelect();
-        if (this.dataQuaSong.currentQues == 1) {
-            GameQuaSong.qs.lockLevel2.active = true;
-        }
-        else {
-            GameQuaSong.qs.lockLevel2.active = false;
-        }
+        cc.director.loadScene("QuaSong");
     }
 
     nextLevelQSLinh() {

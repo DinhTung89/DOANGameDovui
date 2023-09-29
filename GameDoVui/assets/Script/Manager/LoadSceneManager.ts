@@ -11,7 +11,7 @@ export default class LoadSceneManager extends cc.Component {
             Singleton.LOADSCENE_MANAGER = this;
         }
     }
- 
+
     @property(cc.Node)
     bgLoad: cc.Node = null;
     @property(cc.Node)
@@ -34,10 +34,23 @@ export default class LoadSceneManager extends cc.Component {
             })
             .start();
     }
+    dataSelect = JSON.parse(localStorage.getItem("Select"));
+
     loadSceneDovui() {
+        this.dataSelect.mode = 1;
+        localStorage.setItem("Select", JSON.stringify(this.dataSelect));
+        this.loadSceneName("DoVui");
+    }
+    loadSceneDuoiHinh() {
+        this.dataSelect.mode = 2;
+        this.dataSelect.openDV = true;
+        localStorage.setItem("Select", JSON.stringify(this.dataSelect));
         this.loadSceneName("DoVui");
     }
     loadSceneQuaSong() {
+        this.dataSelect.mode = 2;
+        this.dataSelect.openQS = true;
+        localStorage.setItem("Select", JSON.stringify(this.dataSelect));
         this.loadSceneName("QuaSong");
     }
     loadSceneHome() {

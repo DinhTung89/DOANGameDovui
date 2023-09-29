@@ -67,7 +67,6 @@ export default class ModeCtrl extends cc.Component {
     }
 
     protected start(): void {
-        // Singleton.GAME_DATA.resetData();
 
         this.txtCoin.string = this.dataCoin.coin.toString();
         this.loadDataNew();

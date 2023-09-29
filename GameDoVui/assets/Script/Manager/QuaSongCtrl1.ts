@@ -1,3 +1,4 @@
+import GameQuaSong from "../GamePlay/GameQuaSong";
 import WinCtrl from "../GamePlay/WinCtrl";
 import Singleton from "./Singleton";
 
@@ -33,6 +34,17 @@ export default class QuaSongCtrl1 extends cc.Component {
     countFail = 0;
     @property(cc.Node)
     popWin: cc.Node = null;
+    @property(cc.Node)
+    sao1: cc.Node = null;
+    @property(cc.Node)
+    sao2: cc.Node = null;
+    @property(cc.Node)
+    sao3: cc.Node = null;
+    @property(cc.Prefab)
+    efSao: cc.Prefab = null;
+    @property(cc.Node)
+    btnNext: cc.Node = null;
+
 
     //Close Pop
     closeNNSo1m() {
@@ -90,6 +102,9 @@ export default class QuaSongCtrl1 extends cc.Component {
     protected onLoad(): void {
         Singleton.QUA_SONG_CTRL1 = this;
     }
+    protected onEnable(): void {
+        this.huongdan.active = true;
+    }
     reSet() {
         this.countFail = 5;
 
@@ -121,8 +136,85 @@ export default class QuaSongCtrl1 extends cc.Component {
 
         this.btnMove.getChildByName("muiten").angle = 0;
     }
+    show1sao() {
+        setTimeout(() => {
+            this.sao1.active = true;
+            let ef = cc.instantiate(this.efSao);
+            ef.setParent(this.sao1.parent);
+            ef.setPosition(this.sao1.position);
+            this.btnNext.active = true;
+        }, 500);
+    }
+
+    show2sao() {
+        setTimeout(() => {
+            this.sao1.active = true;
+            let ef = cc.instantiate(this.efSao);
+            ef.setParent(this.sao1.parent);
+            ef.setPosition(this.sao1.position);
+            setTimeout(() => {
+                this.sao2.active = true;
+                let ef = cc.instantiate(this.efSao);
+                ef.setParent(this.sao2.parent);
+                ef.setPosition(this.sao2.position);
+                this.btnNext.active = true;
+            }, 500);
+        }, 500);
+    }
+
+    show3sao() {
+        this.scheduleOnce(() => {
+            this.sao1.active = true;
+            let ef = cc.instantiate(this.efSao);
+            ef.setParent(this.sao1.parent);
+            ef.setPosition(this.sao1.position);
+            this.scheduleOnce(() => {
+                this.sao2.active = true;
+                let ef = cc.instantiate(this.efSao);
+                ef.setParent(this.sao2.parent);
+                ef.setPosition(this.sao2.position);
+                this.scheduleOnce(() => {
+                    this.sao3.active = true;
+                    let ef = cc.instantiate(this.efSao);
+                    ef.setParent(this.sao3.parent);
+                    ef.setPosition(this.sao3.position);
+                    this.btnNext.active = true;
+                }, 0.5);
+
+            }, 0.5);
+
+        }, 0.5);
+    }
+
+
+    resetSao() {
+        this.btnNext.active = false;
+        this.sao1.active = false;
+        this.sao2.active = false;
+        this.sao3.active = false;
+    }
+    dataQuaSong = JSON.parse(localStorage.getItem("QuaSong"));
+    nextLevelSelect() {
+        this.reSet();
+        this.resetSao();
+        GameQuaSong.qs.openSelect();
+        if (this.dataQuaSong.currentQues == 1) {
+            GameQuaSong.qs.lockLevel2.active = true;
+        }
+        else {
+            GameQuaSong.qs.lockLevel2.active = false;
+        }
+    }
+
+    nextLevelQSLinh() {
+        this.reSet();
+        this.resetSao();
+        GameQuaSong.qs.openLevelLinhQS();
+    }
 
     protected start(): void {
+        this.btnNext.active = false;
+        this.countFail = 5;
         this.arrayState.push(this.State1);
         this.arrayState.push(this.State2);
         this.arrayState.push(this.StateEnd);
@@ -551,8 +643,6 @@ export default class QuaSongCtrl1 extends cc.Component {
     }
     raftBoTrai = true;
     moveRaft() {
-        this.checkSate();
-        if (this.isFail) return;
         if (!this.cd2OnRaft && !this.cd1OnRaft && !this.nnOnRaft && !this.knOnRaft) {
             this.openNguoi();
             return;
@@ -569,6 +659,8 @@ export default class QuaSongCtrl1 extends cc.Component {
             this.openNNSo1m();
             return;
         }
+        this.checkSate();
+        if (this.isFail) return;
 
         let pos = null;
         if (!this.raftBoTrai) {
@@ -761,15 +853,15 @@ export default class QuaSongCtrl1 extends cc.Component {
         this.popWin.active = true;
         setTimeout(() => {
             if (this.countFail > 3) {
-                WinCtrl.winCtrl.show3sao();
+                this.show3sao();
             }
             else if (this.countFail < 4 && this.countFail > 1) {
-                WinCtrl.winCtrl.show2sao();
+                this.show2sao();
             }
             else {
-                WinCtrl.winCtrl.show1sao();
+                this.show1sao();
             }
-        }, 300);
+        }, 100);
 
     }
     changePosition(currentNode: cc.Node, toNode?: cc.Node): cc.Vec3 {
@@ -798,6 +890,31 @@ export default class QuaSongCtrl1 extends cc.Component {
         node.setPosition(newPosInToNode);
     }
 
+    @property(cc.Node)
+    ads: cc.Node = null;
+    @property(cc.Node)
+    goiY: cc.Node = null;
+    @property(cc.Node)
+    huongdan: cc.Node = null;
+    openAds() {
+        this.ads.active = true;
+    }
+    closeAds() {
+        this.ads.active = false;
+        this.goiY.active = true;
+    }
+    openLink() {
+        let link = ""
+        link = "https://www.haui.edu.vn/vn";
+        window.open(link);
+    }
+    closegoiY() {
+        this.goiY.active = false;
+        this.huongdan.active = false;
+    }
+    openHD() {
+        this.huongdan.active = true;
+    }
 }
 
 

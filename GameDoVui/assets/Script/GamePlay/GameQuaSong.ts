@@ -1,5 +1,6 @@
 import QuaSongCtrl from "../Manager/QuaSongCtrl";
 import QuaSongCtrl1 from "../Manager/QuaSongCtrl1";
+import Singleton from "../Manager/Singleton";
 import WinCtrl from "./WinCtrl";
 
 const { ccclass, property } = cc._decorator;
@@ -13,31 +14,49 @@ export default class GameQuaSong extends cc.Component {
     soiCuuCai: cc.Node = null;
     @property(cc.Node)
     linhQuaSong: cc.Node = null;
+    @property(cc.Node)
+    lockLevel2: cc.Node = null;
+    dataQuaSong = JSON.parse(localStorage.getItem("QuaSong"));
     protected onLoad(): void {
         GameQuaSong.qs = this;
     }
 
 
     start() {
+        if (this.dataQuaSong.currentQues == 1) {
+            this.lockLevel2.active = true;
+        }
+        else {
+            this.lockLevel2.active = false;
+        }
+        this.popSelect.active = true;
 
     }
     openLevelLinhQS() {
-        this.linhQuaSong.active = true;
-        WinCtrl.winCtrl.resetSao();
-        this.linhQuaSong.getChildByName("GamPlay").getComponent(QuaSongCtrl1).reSet();
+        if (this.popSelect.active) {
+            this.popSelect.active = false;
+        }
+        this.soiCuuCai.active = false;
         setTimeout(() => {
-            this.soiCuuCai.active = false;
+            this.linhQuaSong.active = true;
         }, 100);
     }
     openLevelSCC() {
-        this.soiCuuCai.active = true;
-        WinCtrl.winCtrl.resetSao();
-        this.soiCuuCai.getChildByName("GamPlay").getComponent(QuaSongCtrl).reSet();
+        if (this.popSelect.active) {
+            this.popSelect.active = false;
+        }
+        this.linhQuaSong.active = false;
         setTimeout(() => {
-            this.linhQuaSong.active = false;
+            this.soiCuuCai.active = true;
         }, 100);
 
     }
+    openSelect() {
+        this.popSelect.active = true;
+        this.soiCuuCai.active = false;
+        this.linhQuaSong.active = false;
+    }
+  
 
 
 }

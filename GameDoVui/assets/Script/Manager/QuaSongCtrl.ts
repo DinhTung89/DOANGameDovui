@@ -1,3 +1,4 @@
+import GameQuaSong from "../GamePlay/GameQuaSong";
 import WinCtrl from "../GamePlay/WinCtrl";
 import Singleton from "./Singleton";
 
@@ -32,9 +33,20 @@ export default class QuaSongCtrl extends cc.Component {
 
 
     countFail = 0;
+
+
     @property(cc.Node)
     popWin: cc.Node = null;
-
+    @property(cc.Node)
+    sao1: cc.Node = null;
+    @property(cc.Node)
+    sao2: cc.Node = null;
+    @property(cc.Node)
+    sao3: cc.Node = null;
+    @property(cc.Prefab)
+    efSao: cc.Prefab = null;
+    @property(cc.Node)
+    btnNext: cc.Node = null;
     //Cuu an bap
     State1 = {
         left: { wolves: 0, sheep: 1, radish: 1, farmer: 0 },
@@ -72,8 +84,14 @@ export default class QuaSongCtrl extends cc.Component {
     }
 
     arrayState: any[] = [];
+
+    dataQuaSong = JSON.parse(localStorage.getItem("QuaSong"));
+
     protected onLoad(): void {
         Singleton.QUA_SONG_CTRL = this;
+    }
+    protected onEnable(): void {
+        this.huongdan.active = true;
     }
     reSet() {
         this.countFail = 5;
@@ -109,6 +127,8 @@ export default class QuaSongCtrl extends cc.Component {
     }
 
     protected start(): void {
+        this.countFail = 5;
+        this.btnNext.active = false;
         this.arrayState.push(this.State1);
         this.arrayState.push(this.State2);
         this.arrayState.push(this.State3);
@@ -122,7 +142,80 @@ export default class QuaSongCtrl extends cc.Component {
 
     }
 
+    show1sao() {
 
+
+        setTimeout(() => {
+            this.sao1.active = true;
+            let ef = cc.instantiate(this.efSao);
+            ef.setParent(this.sao1.parent);
+            ef.setPosition(this.sao1.position);
+            this.btnNext.active = true;
+        }, 500);
+    }
+
+    show2sao() {
+
+
+        setTimeout(() => {
+            this.sao1.active = true;
+            let ef = cc.instantiate(this.efSao);
+            ef.setParent(this.sao1.parent);
+            ef.setPosition(this.sao1.position);
+            setTimeout(() => {
+                this.sao2.active = true;
+                let ef = cc.instantiate(this.efSao);
+                ef.setParent(this.sao2.parent);
+                ef.setPosition(this.sao2.position);
+                this.btnNext.active = true;
+            }, 500);
+        }, 500);
+    }
+
+    show3sao() {
+        this.scheduleOnce(() => {
+            this.sao1.active = true;
+            let ef = cc.instantiate(this.efSao);
+            ef.setParent(this.sao1.parent);
+            ef.setPosition(this.sao1.position);
+            this.scheduleOnce(() => {
+                this.sao2.active = true;
+                let ef = cc.instantiate(this.efSao);
+                ef.setParent(this.sao2.parent);
+                ef.setPosition(this.sao2.position);
+                this.scheduleOnce(() => {
+                    this.sao3.active = true;
+                    let ef = cc.instantiate(this.efSao);
+                    ef.setParent(this.sao3.parent);
+                    ef.setPosition(this.sao3.position);
+                    this.btnNext.active = true;
+                }, 0.5);
+
+            }, 0.5);
+
+        }, 0.5);
+    }
+
+
+    resetSao() {
+        this.btnNext.active = false;
+        this.sao1.active = false;
+        this.sao2.active = false;
+        this.sao3.active = false;
+    }
+
+    nextLevelQSSCC() {
+        this.reSet();
+        this.resetSao();
+        GameQuaSong.qs.openLevelSCC();
+
+    }
+
+    nextLevelQSLinh() {
+        this.reSet();
+        this.resetSao();
+        GameQuaSong.qs.openLevelLinhQS();
+    }
 
 
 
@@ -784,24 +877,21 @@ export default class QuaSongCtrl extends cc.Component {
     }
 
     Win() {
+        this.dataQuaSong.currentQues = 2;
+        localStorage.setItem("QuaSong", JSON.stringify(this.dataQuaSong));
 
         this.popWin.active = true;
-
-        if (this.countFail > 3) {
-            setTimeout(() => {
-                WinCtrl.winCtrl.show3sao();
-            }, 300);
-        }
-        else if (this.countFail < 4 && this.countFail > 1) {
-            setTimeout(() => {
-                WinCtrl.winCtrl.show2sao();
-            }, 300);
-        }
-        else {
-            setTimeout(() => {
-                WinCtrl.winCtrl.show1sao();
-            }, 300);
-        }
+        setTimeout(() => {
+            if (this.countFail > 3) {
+                this.show3sao();
+            }
+            else if (this.countFail < 4 && this.countFail > 1) {
+                this.show2sao();
+            }
+            else {
+                this.show1sao();
+            }
+        }, 100);
 
 
     }
@@ -831,6 +921,31 @@ export default class QuaSongCtrl extends cc.Component {
         node.setPosition(newPosInToNode);
     }
 
+    @property(cc.Node)
+    ads: cc.Node = null;
+    @property(cc.Node)
+    goiY: cc.Node = null;
+    @property(cc.Node)
+    huongdan: cc.Node = null;
+    openAds() {
+        this.ads.active = true;
+    }
+    closeAds() {
+        this.ads.active = false;
+        this.goiY.active = true;
+    }
+    openLink() {
+        let link = ""
+        link = "https://www.haui.edu.vn/vn";
+        window.open(link);
+    }
+    closegoiY() {
+        this.goiY.active = false;
+        this.huongdan.active = false;
+    }
+    openHD() {
+        this.huongdan.active = true;
+    }
 }
 
 

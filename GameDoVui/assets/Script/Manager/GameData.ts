@@ -33,7 +33,17 @@ export default class GameData extends cc.Component {
             isFirst: false,
             isMale: false
         };
+        const QuaSong = {
+            currentQues: 1,
+            pass: false
+        };
         // Kiểm tra xem dữ liệu đã được tạo chưa và khở tạo
+        var JSDataQuaSong = localStorage.getItem("QuaSong");
+        if (JSDataQuaSong == null) {
+            console.log("SET DATA QUA SONG");
+            const dataQuaSongJS = JSON.stringify(QuaSong);
+            localStorage.setItem('QuaSong', dataQuaSongJS);
+        }
         var JSName = localStorage.getItem("NameNV");
         if (JSName == null) {
             console.log("SET DATA Name");
@@ -81,10 +91,17 @@ export default class GameData extends cc.Component {
         var JSDataCauDO = localStorage.getItem("CauDo");
         var JSDataDuoiHinh = localStorage.getItem("DuoiHinh");
         var JSDataKimCuong = localStorage.getItem("KimCuong");
+        var JSDataQuaSong = localStorage.getItem("QuaSong");
+        var JSName = localStorage.getItem("NameNV");
+        var JSCOIN = localStorage.getItem("Coin");
 
         var DataCauDo = JSON.parse(JSDataCauDO);
         var DataDuoiHinh = JSON.parse(JSDataDuoiHinh);
         var DataKimCuong = JSON.parse(JSDataKimCuong);
+        var DataQuaSong = JSON.parse(JSDataQuaSong);
+        var DataName = JSON.parse(JSName);
+        var DataCoin = JSON.parse(JSCOIN);
+
 
         if (JSDataCauDO != null) {
             DataCauDo.currentQues = 1;
@@ -100,6 +117,23 @@ export default class GameData extends cc.Component {
             DataKimCuong.soluong = 0;
             localStorage.setItem("KimCuong", JSON.stringify(DataKimCuong));
         }
+        if (JSDataQuaSong != null) {
+            DataQuaSong.currentQues = 1;
+            localStorage.setItem("QuaSong", JSON.stringify(DataQuaSong));
+
+        }
+        if (JSCOIN != null) {
+            DataCoin.coin = 0;
+            localStorage.setItem("Coin", JSON.stringify(DataCoin));
+
+        }
+        if (JSName != null) {
+            DataName.nameNV = "Tung";
+            DataName.isFirst = false;
+            DataName.isMale = false;
+            localStorage.setItem("NameNV", JSON.stringify(DataName));
+        }
+
     }
 
 }

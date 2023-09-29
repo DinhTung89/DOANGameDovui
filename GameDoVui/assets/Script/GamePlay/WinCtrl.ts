@@ -95,17 +95,6 @@ export default class WinCtrl extends cc.Component {
         this.resetSao();
         this.node.active = false;
     }
-    nextLevelQSSCC() {
-        this.btnNext.active = false;
-        this.resetSao();
-        GameQuaSong.qs.openLevelSCC();
 
-    }
-
-    nextLevelQSLinh() {
-        this.btnNext.active = false;
-        this.resetSao();
-        GameQuaSong.qs.openLevelLinhQS();
-    }
 
 }

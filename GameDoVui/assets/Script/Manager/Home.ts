@@ -1,3 +1,6 @@
+import { TypeAudio } from "./AudioManager";
+import Singleton from "./Singleton";
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -29,14 +32,13 @@ export default class Home extends cc.Component {
         this.btnSetting.active = true;
     }
     protected start(): void {
+        Singleton.AUDIO_MANAGER.playMusic(TypeAudio.BGMHome);
         if (this.dataCoin != null && this.dataSelect != null) {
 
             this.cointxt.string = this.dataCoin.coin.toString();
 
             if (this.dataSelect.openDV == false) {
                 this.lockDovui.active = true;
-                console.log("lock do vui");
-
             }
             else {
                 this.lockDovui.active = false;
@@ -53,8 +55,9 @@ export default class Home extends cc.Component {
 
     }
     openQuaSong() {
-        if (this.dataCoin.coin >= 100) {
-            this.dataCoin.coin -= 100;
+        if (this.dataCoin.coin >= 200) {
+            Singleton.AUDIO_MANAGER.playEffect(TypeAudio.UnLockUI);
+            this.dataCoin.coin -= 200;
             localStorage.setItem("Coin", JSON.stringify(this.dataCoin));
 
             this.dataSelect.openQS = true;
@@ -68,13 +71,15 @@ export default class Home extends cc.Component {
         }
     }
     openCauDo() {
-        if (this.dataCoin.coin >= 100) {
-            this.dataCoin.coin -= 100;
-            localStorage.setItem("Coin", JSON.stringify(this.dataCoin));0
+        if (this.dataCoin.coin >= 200) {
+            Singleton.AUDIO_MANAGER.playEffect(TypeAudio.UnLockUI);
+
+            this.dataCoin.coin -= 200;
+            localStorage.setItem("Coin", JSON.stringify(this.dataCoin)); 0
 
             this.dataSelect.openDV = true;
             localStorage.setItem("Select", JSON.stringify(this.dataSelect));
-            
+
             this.lockDovui.active = false;
             this.cointxt.string = this.dataCoin.coin.toString();
 

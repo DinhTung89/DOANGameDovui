@@ -1,7 +1,7 @@
 {
   "title": "GameDoVui",
   "packageName": "org.cocos2d.demo",
-  "startScene": "58cb1de4-1c74-48e6-9f37-70c9bf049f5b",
+  "startScene": "c3c4c292-1eea-46ad-bfd2-6663c015f0b3",
   "excludeScenes": [],
   "orientation": {
     "landscapeRight": true,

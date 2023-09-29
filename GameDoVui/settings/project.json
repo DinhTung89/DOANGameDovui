@@ -4,11 +4,16 @@
   ],
   "last-module-event-record-time": 1696005720087,
   "group-list": [
-    "default"
+    "default",
+    "Ads"
   ],
   "collision-matrix": [
     [
       true
+    ],
+    [
+      false,
+      false
     ]
   ],
   "excluded-modules": [

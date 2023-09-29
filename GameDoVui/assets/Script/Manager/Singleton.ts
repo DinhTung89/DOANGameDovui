@@ -1,4 +1,5 @@
 import ModeCtrl from "../GamePlay/ModeCtrl";
+import AudioManager from "./AudioManager";
 import GameData from "./GameData";
 import LoadSceneManager from "./LoadSceneManager";
 import QuaSongCtrl from "./QuaSongCtrl";
@@ -10,4 +11,5 @@ export default class Singleton {
     public static QUA_SONG_CTRL: QuaSongCtrl = null;
     public static QUA_SONG_CTRL1: QuaSongCtrl1 = null;
     public static LOADSCENE_MANAGER: LoadSceneManager = null;
+    public static AUDIO_MANAGER: AudioManager = null;
 }

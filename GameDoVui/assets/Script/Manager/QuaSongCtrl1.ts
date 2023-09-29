@@ -1,5 +1,6 @@
 import GameQuaSong from "../GamePlay/GameQuaSong";
 import WinCtrl from "../GamePlay/WinCtrl";
+import { TypeAudio } from "./AudioManager";
 import Singleton from "./Singleton";
 
 const { ccclass, property } = cc._decorator;
@@ -48,32 +49,44 @@ export default class QuaSongCtrl1 extends cc.Component {
 
     //Close Pop
     closeNNSo1m() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+
         this.nhunhatSo1m.active = false;
         this.btnMove.active = true;
     }
     closeKN1M() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+
         this.kieuNgao1m.active = false;
         this.btnMove.active = true;
     }
     closeNguoi() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+
         this.nguoilaido.active = false;
         this.btnMove.active = true;
     }
 
     //Open Pop
     openNNSo1m() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.PopQuaSongFalse);
+
         this.countFail -= 1;
         this.nhunhatSo1m.active = true;
         this.btnMove.active = false;
     }
 
     openKN1M() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.PopQuaSongFalse);
+
         this.countFail -= 1;
         this.kieuNgao1m.active = true;
         this.btnMove.active = false;
     }
 
     openNguoi() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.PopQuaSongFalse);
+
         this.countFail -= 1;
         this.nguoilaido.active = true;
         this.btnMove.active = false;
@@ -138,6 +151,7 @@ export default class QuaSongCtrl1 extends cc.Component {
     }
     show1sao() {
         setTimeout(() => {
+            Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ShowSao);
             this.sao1.active = true;
             let ef = cc.instantiate(this.efSao);
             ef.setParent(this.sao1.parent);
@@ -148,11 +162,14 @@ export default class QuaSongCtrl1 extends cc.Component {
 
     show2sao() {
         setTimeout(() => {
+            Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ShowSao);
             this.sao1.active = true;
             let ef = cc.instantiate(this.efSao);
             ef.setParent(this.sao1.parent);
             ef.setPosition(this.sao1.position);
             setTimeout(() => {
+                Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ShowSao);
+
                 this.sao2.active = true;
                 let ef = cc.instantiate(this.efSao);
                 ef.setParent(this.sao2.parent);
@@ -164,16 +181,22 @@ export default class QuaSongCtrl1 extends cc.Component {
 
     show3sao() {
         this.scheduleOnce(() => {
+            Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ShowSao);
+
             this.sao1.active = true;
             let ef = cc.instantiate(this.efSao);
             ef.setParent(this.sao1.parent);
             ef.setPosition(this.sao1.position);
             this.scheduleOnce(() => {
+                Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ShowSao);
+
                 this.sao2.active = true;
                 let ef = cc.instantiate(this.efSao);
                 ef.setParent(this.sao2.parent);
                 ef.setPosition(this.sao2.position);
                 this.scheduleOnce(() => {
+                    Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ShowSao);
+
                     this.sao3.active = true;
                     let ef = cc.instantiate(this.efSao);
                     ef.setParent(this.sao3.parent);
@@ -195,6 +218,8 @@ export default class QuaSongCtrl1 extends cc.Component {
     }
     dataQuaSong = JSON.parse(localStorage.getItem("QuaSong"));
     nextLevelSelect() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+
         this.reSet();
         this.resetSao();
         GameQuaSong.qs.openSelect();
@@ -202,6 +227,8 @@ export default class QuaSongCtrl1 extends cc.Component {
     }
 
     nextLevelQSLinh() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+
         this.reSet();
         this.resetSao();
         GameQuaSong.qs.openLevelLinhQS();
@@ -231,6 +258,8 @@ export default class QuaSongCtrl1 extends cc.Component {
     nnP2 = false;
     nnBoTrai = true;
     NNLenThuyen() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.SelectModeUI);
+
         if (this.nnBoTrai && !this.raftBoTrai || !this.nnBoTrai && this.raftBoTrai) return;
 
         if (this.isMoveOnRaft) return;
@@ -334,6 +363,8 @@ export default class QuaSongCtrl1 extends cc.Component {
     knP2 = false;
     knBoTrai = true;
     KNLenThuyen() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.SelectModeUI);
+
         if (this.knBoTrai && !this.raftBoTrai || !this.knBoTrai && this.raftBoTrai) return;
 
         if (this.isMoveOnRaft) return;
@@ -436,6 +467,8 @@ export default class QuaSongCtrl1 extends cc.Component {
     cd1P2 = false;
     cd1BoTrai = true;
     CD1LenThuyen() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.SelectModeUI);
+
         if (this.cd1BoTrai && !this.raftBoTrai || !this.cd1BoTrai && this.raftBoTrai) return;
 
         // console.log(this.countRaft);
@@ -546,6 +579,8 @@ export default class QuaSongCtrl1 extends cc.Component {
     cd2P2 = false;
     cd2BoTrai = true;
     CD2LenThuyen() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.SelectModeUI);
+
         if (this.cd2BoTrai && !this.raftBoTrai || !this.cd2BoTrai && this.raftBoTrai) return;
 
         let t = cc.tween;
@@ -638,6 +673,8 @@ export default class QuaSongCtrl1 extends cc.Component {
     }
     raftBoTrai = true;
     moveRaft() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+
         if (!this.cd2OnRaft && !this.cd1OnRaft && !this.nnOnRaft && !this.knOnRaft) {
             this.openNguoi();
             return;
@@ -846,6 +883,8 @@ export default class QuaSongCtrl1 extends cc.Component {
 
     Win() {
         this.popWin.active = true;
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.WinQS);
+
         setTimeout(() => {
             if (this.countFail > 3) {
                 this.show3sao();
@@ -892,9 +931,13 @@ export default class QuaSongCtrl1 extends cc.Component {
     @property(cc.Node)
     huongdan: cc.Node = null;
     openAds() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+
         this.ads.active = true;
     }
     closeAds() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+
         this.ads.active = false;
         this.goiY.active = true;
     }
@@ -904,10 +947,14 @@ export default class QuaSongCtrl1 extends cc.Component {
         window.open(link);
     }
     closegoiY() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+
         this.goiY.active = false;
         this.huongdan.active = false;
     }
     openHD() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+
         this.huongdan.active = true;
     }
 }

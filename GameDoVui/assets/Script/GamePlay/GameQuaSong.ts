@@ -1,3 +1,4 @@
+import { TypeAudio } from "../Manager/AudioManager";
 import QuaSongCtrl from "../Manager/QuaSongCtrl";
 import QuaSongCtrl1 from "../Manager/QuaSongCtrl1";
 import Singleton from "../Manager/Singleton";
@@ -26,11 +27,14 @@ export default class GameQuaSong extends cc.Component {
         if (this.dataQuaSong.currentQues == 2) {
             this.lockLevel2.active = false;
         }
-
+        Singleton.AUDIO_MANAGER.playMusic(TypeAudio.BGMUIQuaSong);
         this.popSelect.active = true;
 
     }
     openLevelLinhQS() {
+        Singleton.AUDIO_MANAGER.playMusic(TypeAudio.BGMQuaSong);
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.SelectModeUI);
+
         this.lockLevel2.active = false;
         console.log("ac");
 
@@ -43,6 +47,8 @@ export default class GameQuaSong extends cc.Component {
         }, 100);
     }
     openLevelSCC() {
+        Singleton.AUDIO_MANAGER.playMusic(TypeAudio.BGMQuaSong);
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.SelectModeUI);
         if (this.popSelect.active) {
             this.popSelect.active = false;
         }
@@ -56,7 +62,10 @@ export default class GameQuaSong extends cc.Component {
         this.popSelect.active = true;
         this.soiCuuCai.active = false;
         this.linhQuaSong.active = false;
-        cc.director.loadScene("QuaSong");
+        Singleton.AUDIO_MANAGER.stopMusic();
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+        cc.director.loadScene("QuaSong");        
+
     }
 
 

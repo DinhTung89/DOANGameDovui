@@ -3,6 +3,7 @@ import KeyInput from './KeyInput';
 import KeyOutput from './KeyOutput';
 import Singleton from '../Manager/Singleton';
 import WinCtrl from './WinCtrl';
+import { TypeAudio } from '../Manager/AudioManager';
 export enum ModeType {
     CauDo,
     DuoiHinh,
@@ -310,6 +311,8 @@ export default class ModeCtrl extends cc.Component {
         }, 1500);
     }
     nextLevel() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+
         this.checkSao = 3;
         this.greenCheck.active = false;
         this.isWin = false;
@@ -333,9 +336,13 @@ export default class ModeCtrl extends cc.Component {
     @property(cc.Node)
     ads: cc.Node = null;
     openAds() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+
         this.ads.active = true;
     }
     closeAds() {
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ButtonClick);
+
         this.ads.active = false;
         this.suggest();
     }

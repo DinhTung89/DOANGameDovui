@@ -1,3 +1,4 @@
+import { TypeAudio } from "../Manager/AudioManager";
 import Singleton from "../Manager/Singleton";
 import KeyInput from "./KeyInput";
 
@@ -15,6 +16,8 @@ export default class KeyOutput extends cc.Component {
     isSuggest = false;
     setActionTouch() {
         if (this.isChose || Singleton.MODE_CTRL.isWin || this.isSuggest|| Singleton.MODE_CTRL.isAnim) return;
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ClickOUT);
+
         this.isChose = true;
         Singleton.MODE_CTRL.arrayLabelKey[this.numberKey].parent.opacity = 255;
         this.node.getComponent(cc.Label).string = "";

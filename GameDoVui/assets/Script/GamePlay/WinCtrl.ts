@@ -1,3 +1,4 @@
+import { TypeAudio } from "../Manager/AudioManager";
 import QuaSongCtrl from "../Manager/QuaSongCtrl";
 import Singleton from "../Manager/Singleton";
 import GameQuaSong from "./GameQuaSong";
@@ -31,9 +32,8 @@ export default class WinCtrl extends cc.Component {
     //     this.btnNext.active = false;
     // }
     show1sao() {
-
-
         setTimeout(() => {
+            Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ShowSao);
             this.sao1.active = true;
             let ef = cc.instantiate(this.efSao);
             ef.setParent(this.sao1.parent);
@@ -46,11 +46,13 @@ export default class WinCtrl extends cc.Component {
 
 
         setTimeout(() => {
+            Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ShowSao);
             this.sao1.active = true;
             let ef = cc.instantiate(this.efSao);
             ef.setParent(this.sao1.parent);
             ef.setPosition(this.sao1.position);
             setTimeout(() => {
+                Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ShowSao);
                 this.sao2.active = true;
                 let ef = cc.instantiate(this.efSao);
                 ef.setParent(this.sao2.parent);
@@ -62,16 +64,19 @@ export default class WinCtrl extends cc.Component {
 
     show3sao() {
         this.scheduleOnce(() => {
+            Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ShowSao);
             this.sao1.active = true;
             let ef = cc.instantiate(this.efSao);
             ef.setParent(this.sao1.parent);
             ef.setPosition(this.sao1.position);
             this.scheduleOnce(() => {
+                Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ShowSao);
                 this.sao2.active = true;
                 let ef = cc.instantiate(this.efSao);
                 ef.setParent(this.sao2.parent);
                 ef.setPosition(this.sao2.position);
                 this.scheduleOnce(() => {
+                    Singleton.AUDIO_MANAGER.playEffect(TypeAudio.ShowSao);
                     this.sao3.active = true;
                     let ef = cc.instantiate(this.efSao);
                     ef.setParent(this.sao3.parent);

@@ -144,7 +144,7 @@ export default class ModeCtrl extends cc.Component {
             });
         }
         else {
-            //Load Câu hỏi
+            //Load ảnh
             cc.loader.loadRes("DuoiHinh/DapAn/DA" + this.dataDuoiHinh.currentQues.toString(), cc.TextAsset, (err, txt) => {
                 if (err) {
                     cc.error("Hết Câu Hỏi Trong Kho:", err);
@@ -215,17 +215,6 @@ export default class ModeCtrl extends cc.Component {
         }
         return dapAn;
     }
-
-    //Hiện các ký tự trả lời câu đố ra màn hình
-    printKey() {
-        var cacKyTuDapAn = this.instanceKey();
-        var mangCaKytu = cacKyTuDapAn.split("");
-        this.fisherYates(mangCaKytu);
-        for (var i = 0; i < this.arrayLabelKey.length; i++) {
-            this.arrayLabelKey[i].getComponent(cc.Label).string = " " + mangCaKytu[i] + " ";
-        }
-    }
-
     //Thuật toán Fisher-Yates shufffle random thứ tự các phần tử trong mảng
     fisherYates(array) {
         var currentIndex: number = array.length;
@@ -237,6 +226,18 @@ export default class ModeCtrl extends cc.Component {
             array[randomIndex] = temporaryValue;
         }
     }
+
+    //Hiện các ký tự trả lời câu đố ra màn hình
+    printKey() {
+        var cacKyTuDapAn = this.instanceKey();
+        var mangCaKytu = cacKyTuDapAn.split("");
+        this.fisherYates(mangCaKytu);
+        for (var i = 0; i < this.arrayLabelKey.length; i++) {
+            this.arrayLabelKey[i].getComponent(cc.Label).string = " " + mangCaKytu[i] + " ";
+        }
+    }
+
+
 
     // Khởi tạo các ô hiển thị đáp án được nhập và và các ký tự
     instanceDapAn() {

@@ -23,6 +23,7 @@ export default class FullScrenCtrl extends cc.Component {
         this.btnExitFullScreen.active = false;
         cc.view.enableAutoFullScreen(false);
     }
+    
 
 
 

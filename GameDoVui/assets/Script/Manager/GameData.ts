@@ -73,8 +73,6 @@ export default class GameData extends cc.Component {
             const dataDuoiHinhJS = JSON.stringify(ClassDuoiHinh);
             localStorage.setItem('DuoiHinh', dataDuoiHinhJS);
         }
-
-
         var JSDataSelect = localStorage.getItem("Select");
         if (JSDataSelect == null) {
             console.log("SET DATA Select");

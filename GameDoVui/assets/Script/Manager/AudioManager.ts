@@ -25,7 +25,8 @@ export enum TypeAudio {
     Yeah,
     Sad,
     PopQuaSongFalse,
-    WinQS
+    WinQS,
+    NuocChay
 };
 
 

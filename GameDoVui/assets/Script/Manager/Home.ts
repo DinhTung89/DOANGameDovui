@@ -91,7 +91,7 @@ export default class Home extends cc.Component {
     }
 
     quitGame() {
-        cc.game.end();
+        window.close();
     }
 
 

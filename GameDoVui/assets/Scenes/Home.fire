@@ -4705,7 +4705,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 155
+        "__id__": 156
       }
     ],
     "_prefab": null,
@@ -6060,6 +6060,9 @@
       },
       {
         "__id__": 154
+      },
+      {
+        "__id__": 155
       }
     ],
     "musicOn": {
@@ -6274,6 +6277,15 @@
     "clips": [
       {
         "__uuid__": "7dacbea3-41bd-4625-98db-1ce7fb2aee87"
+      }
+    ]
+  },
+  {
+    "__type__": "ClipAudio",
+    "clipName": 20,
+    "clips": [
+      {
+        "__uuid__": "50ac4d20-75b5-4897-8b1e-059023461614"
       }
     ]
   },

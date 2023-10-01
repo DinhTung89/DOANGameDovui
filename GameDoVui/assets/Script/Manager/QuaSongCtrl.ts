@@ -739,6 +739,7 @@ export default class QuaSongCtrl extends cc.Component {
         else {
             pos = cc.v3(-100, -130, 0);
         }
+        Singleton.AUDIO_MANAGER.playEffect(TypeAudio.NuocChay);
         this.btnMove.active = false;
         cc.tween(this.raft)
             .to(0.5, { position: pos })
